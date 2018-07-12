@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="609d2c70-c423-47ff-8b60-6291a2c5fb0a" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Web.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webResources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/css/app.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/includes/footer.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/includes/functions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/includes/header.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/register.php" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/php/includes/header.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="register.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/php/register.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/php/includes/functions.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="55" selection-start-line="3" selection-start-column="55" selection-end-line="3" selection-end-column="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="footer.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/php/includes/footer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/css/app.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2295">
+              <caret line="10" column="143587" selection-start-line="10" selection-start-column="143587" selection-end-line="10" selection-end-column="143587" />
+              <folding>
+                <element signature="e#134939#135214#2" expanded="true" />
+                <element signature="e#135748#136023#2" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/css/style.css">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>center</find>
+      <find>.signa</find>
+      <find>divid</find>
+      <find>consol</find>
+      <find>console.lo</find>
+      <find>console</find>
+      <find>console.log</find>
+      <find>modal</find>
+      <find>button</find>
+      <find>delete</find>
+      <find>closeButton</find>
+      <find>Popup</find>
+      <find>reser</find>
+      <find>s</find>
+      <find>reserv</find>
+      <find>lunch</find>
+      <find>Modal titl</find>
+      <find>jquer</find>
+      <find>reserva</find>
+      <find>mate</find>
+      <find>#</find>
+      <find>contr</find>
+      <find>valida</find>
+      <find>popup</find>
+      <find>30%</find>
+      <find>map</find>
+      <find>height</find>
+      <find>signature</find>
+      <find>item__</find>
+      <find>ins</find>
+    </findStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
+  </component>
+  <component name="FrameworkCommandLineHistory">
+    <commandsHistory>
+      <command text="npm run dev" />
+    </commandsHistory>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/js/markerclusterer.js" />
+        <option value="$PROJECT_DIR$/src/js/velibController.js" />
+        <option value="$PROJECT_DIR$/src/js/class/Velib.js" />
+        <option value="$PROJECT_DIR$/src/js/map.js" />
+        <option value="$PROJECT_DIR$/lib_webpack/js/main.js" />
+        <option value="$PROJECT_DIR$/.babelrc" />
+        <option value="$PROJECT_DIR$/src/js/initMap.js" />
+        <option value="$PROJECT_DIR$/access.log" />
+        <option value="$PROJECT_DIR$/src/js/class/global.js" />
+        <option value="$PROJECT_DIR$/dist/js/main.js" />
+        <option value="$PROJECT_DIR$/src/js/ajax.js" />
+        <option value="$PROJECT_DIR$/webpack.config.js" />
+        <option value="$PROJECT_DIR$/yarn.lock" />
+        <option value="$PROJECT_DIR$/src/js/class/helper.js" />
+        <option value="$PROJECT_DIR$/src/js/class/Popup.js" />
+        <option value="$PROJECT_DIR$/src/css/styles.css" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/src/js/class/Station.js" />
+        <option value="$PROJECT_DIR$/css/styles.css" />
+        <option value="$PROJECT_DIR$/src/js/class/Maps.js" />
+        <option value="$PROJECT_DIR$/src/js/helper.js" />
+        <option value="$PROJECT_DIR$/src/js/class/Carousel.js" />
+        <option value="$PROJECT_DIR$/src/js/bookingController.js" />
+        <option value="$PROJECT_DIR$/src/js/main.js" />
+        <option value="$PROJECT_DIR$/src/js/class/Booking.js" />
+        <option value="$PROJECT_DIR$/src/js/stationController.js" />
+        <option value="$PROJECT_DIR$/src/css/style.css" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/src/php/index.php" />
+        <option value="$PROJECT_DIR$/src/php/header.php" />
+        <option value="$PROJECT_DIR$/src/php/includes/footer.php" />
+        <option value="$PROJECT_DIR$/src/php/includes/functions.php" />
+        <option value="$PROJECT_DIR$/src/css/app.css" />
+        <option value="$PROJECT_DIR$/src/php/register.php" />
+        <option value="$PROJECT_DIR$/src/php/includes/header.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="67" />
+    <option name="y" value="25" />
+    <option name="width" value="1853" />
+    <option name="height" value="1055" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="php" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="php" type="462c0819:PsiDirectoryNode" />
+              <item name="includes" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Téléchargements/ocr-blogwriter-master" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path" value="/usr/bin/node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/php/includes" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/js" />
+      <recent name="$PROJECT_DIR$/src/js/class" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="609d2c70-c423-47ff-8b60-6291a2c5fb0a" name="Default" comment="" />
+      <created>1522662217902</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1522662217902</updated>
+      <workItem from="1522662219173" duration="3909000" />
+      <workItem from="1523292668806" duration="1869000" />
+      <workItem from="1523337553368" duration="2871000" />
+      <workItem from="1523372670237" duration="1688000" />
+      <workItem from="1523865539914" duration="10106000" />
+      <workItem from="1523897545150" duration="1554000" />
+      <workItem from="1524386945947" duration="1694000" />
+      <workItem from="1524458770151" duration="7825000" />
+      <workItem from="1524641774497" duration="22283000" />
+      <workItem from="1525065866700" duration="22803000" />
+      <workItem from="1525180613805" duration="9589000" />
+      <workItem from="1525245271362" duration="16727000" />
+      <workItem from="1525671074089" duration="3064000" />
+      <workItem from="1526284149554" duration="22716000" />
+      <workItem from="1526647865237" duration="1361000" />
+      <workItem from="1526649264789" duration="177000" />
+      <workItem from="1526662790885" duration="799000" />
+      <workItem from="1526889585291" duration="13875000" />
+      <workItem from="1527089253405" duration="2355000" />
+      <workItem from="1527177253496" duration="4583000" />
+      <workItem from="1527500701214" duration="2252000" />
+      <workItem from="1527670134170" duration="19382000" />
+      <workItem from="1528102994127" duration="3089000" />
+      <workItem from="1528304296358" duration="603000" />
+      <workItem from="1528443927495" duration="2222000" />
+      <workItem from="1528708023986" duration="4986000" />
+      <workItem from="1528713366315" duration="2120000" />
+      <workItem from="1528795506278" duration="599000" />
+      <workItem from="1528892078766" duration="6641000" />
+      <workItem from="1528968174527" duration="16729000" />
+      <workItem from="1528987362687" duration="10987000" />
+      <workItem from="1528999554072" duration="777000" />
+      <workItem from="1529139574270" duration="14529000" />
+      <workItem from="1529400790319" duration="15249000" />
+      <workItem from="1529426831679" duration="2277000" />
+      <workItem from="1529482759101" duration="34824000" />
+      <workItem from="1529565408330" duration="16029000" />
+      <workItem from="1529584221656" duration="7432000" />
+      <workItem from="1529597948907" duration="4951000" />
+      <workItem from="1529953231510" duration="54000" />
+      <workItem from="1530024471023" duration="527000" />
+      <workItem from="1530024999383" duration="7793000" />
+      <workItem from="1530514213860" duration="599000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="326499000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16214721" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5146652" side_tool="true" visible="true" weight="0.3275488" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4853348" visible="true" weight="0.3275488" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="TypeScript" order="10" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="Command Line Tools Console" order="12" sideWeight="0.49973017" weight="0.32910052" />
+      <window_info anchor="bottom" id="Messages" order="7" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49973017" weight="0.32910052" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.babelrc" />
+    <entry file="file://$PROJECT_DIR$/node_modules/babel-core/README.md" />
+    <entry file="file://$PROJECT_DIR$/package-lock.json" />
+    <entry file="file://$PROJECT_DIR$/yarn.lock" />
+    <entry file="file://$PROJECT_DIR$/node_modules/materialize-css/CHANGELOG.md" />
+    <entry file="file://$PROJECT_DIR$/src/js/materialize.js" />
+    <entry file="file://$PROJECT_DIR$/package.json" />
+    <entry file="file://$PROJECT_DIR$/node_modules/signature_pad/dist/signature_pad.js" />
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="602">
+          <caret line="4622" column="4" selection-start-line="4622" selection-start-column="4" selection-end-line="4622" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/class/Popup.js" />
+    <entry file="file://$PROJECT_DIR$/assets/img/3.jpg" />
+    <entry file="file://$PROJECT_DIR$/images/conv30.png" />
+    <entry file="file://$PROJECT_DIR$/images/conv40.png" />
+    <entry file="file://$PROJECT_DIR$/images/conv50.png" />
+    <entry file="file://$PROJECT_DIR$/images/heart30.png" />
+    <entry file="file://$PROJECT_DIR$/images/m3.png" />
+    <entry file="file://$PROJECT_DIR$/images/m1.png" />
+    <entry file="file://$PROJECT_DIR$/images/m5.png" />
+    <entry file="file://$PROJECT_DIR$/images/m4.png" />
+    <entry file="file://$PROJECT_DIR$/images/m2.png" />
+    <entry file="file://$PROJECT_DIR$/dist/js/main.js" />
+    <entry file="file://$PROJECT_DIR$/assets/img/slide_velib_resize.jpg" />
+    <entry file="file://$PROJECT_DIR$/assets/img/2.jpg" />
+    <entry file="file://$PROJECT_DIR$/images/blueBike.png" />
+    <entry file="file://$PROJECT_DIR$/assets/img/1.jpg" />
+    <entry file="file://$PROJECT_DIR$/assets/img/veloangers120204.jpg" />
+    <entry file="file://$PROJECT_DIR$/assets/img/velov-lyon.jpg" />
+    <entry file="file://$PROJECT_DIR$/assets/img/station-pick-step.png" />
+    <entry file="file://$PROJECT_DIR$/assets/img/slide-velib.jpg" />
+    <entry file="file://$PROJECT_DIR$/assets/img/slide_velib1.jpg" />
+    <entry file="file://$PROJECT_DIR$/assets/img/fill-signature-step.png" />
+    <entry file="file://$PROJECT_DIR$/css/styles.css" />
+    <entry file="file://$PROJECT_DIR$/src/js/markerclusterer.js" />
+    <entry file="file://$PROJECT_DIR$/src/js/helper.js" />
+    <entry file="file://$PROJECT_DIR$/webpack.config.js" />
+    <entry file="file://$PROJECT_DIR$/src/js/main.js" />
+    <entry file="file://$PROJECT_DIR$/src/js/ajax.js" />
+    <entry file="file://$PROJECT_DIR$/src/js/class/Station.js" />
+    <entry file="file://$PROJECT_DIR$/src/js/class/Maps.js" />
+    <entry file="file://$PROJECT_DIR$/src/js/stationController.js" />
+    <entry file="file://$PROJECT_DIR$/src/js/class/Carousel.js" />
+    <entry file="file://$PROJECT_DIR$/src/js/bookingController.js" />
+    <entry file="file://$PROJECT_DIR$/src/js/class/Booking.js" />
+    <entry file="file://$PROJECT_DIR$/src/css/style.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html" />
+    <entry file="file://$PROJECT_DIR$/src/php/index.php" />
+    <entry file="file://$PROJECT_DIR$/src/css/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2295">
+          <caret line="10" column="143587" selection-start-line="10" selection-start-column="143587" selection-end-line="10" selection-end-column="143587" />
+          <folding>
+            <element signature="e#134939#135214#2" expanded="true" />
+            <element signature="e#135748#136023#2" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/php/includes/footer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/php/includes/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="55" selection-start-line="3" selection-start-column="55" selection-end-line="3" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/php/includes/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/php/register.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
