@@ -1,4 +1,4 @@
-<?php require 'functions.php'; ?>
+<?php require_once 'functions.php'; ?>
 
 <!doctype html>
 <html lang="en">
@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+    <link href="src/css/app.css" rel="stylesheet">
     <title>Blog d'Ecri-VIN</title>
-    <link href="../../css/app.css" rel="stylesheet">
+
 
 </head>
 
@@ -23,7 +23,7 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li><a class="nav-link" href="../register.php">S'inscrire <span class="sr-only">(current)</span></a></li>
+            <li><a class="nav-link" href="../model/register.php">S'inscrire <span class="sr-only">(current)</span></a></li>
             <li><a class="nav-link" href="login.php">Se connecter</a></li>
 
         </ul>
