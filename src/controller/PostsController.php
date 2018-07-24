@@ -6,9 +6,11 @@
  * Time: 19:06
  */
 
+namespace App\controller;
+
 class PostsController {
 
-    function getPosts() {
+    public function getPosts() {
 
         try {
             $db = new PDO('mysql:host=127.0.0.1;dbname=blogwritter;charset=utf8', "phpmyadmin", "root");
@@ -19,5 +21,13 @@ class PostsController {
         catch(Exception $e) {
             die('Error : '. $e->getMessage());
         }
+    }
+
+    public function show($id) {
+
+        echo "<pre>";
+        echo "Je suis l'article $id";
+        echo "</pre>";
+
     }
 }
