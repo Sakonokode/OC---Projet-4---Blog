@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="609d2c70-c423-47ff-8b60-6291a2c5fb0a" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/AppController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Core/Database/EntityManager.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Comments.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Postable.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Posts.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/database.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/register.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/route.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Router/Route.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Router/Router.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/routerException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/RouterException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Router/routes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/header.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,6 +25,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="json" value="1" />
+          <entry key="md" value="1" />
           <entry key="php" value="23" />
           <entry key="sql" value="2" />
         </counts>
@@ -50,6 +33,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="1" />
+          <entry key="Markdown" value="1" />
           <entry key="PHP" value="23" />
           <entry key="SQL" value="2" />
         </counts>
@@ -149,11 +133,21 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Entity/Posts.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
               <caret line="12" selection-start-line="12" selection-end-line="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -217,7 +211,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/php/includes/footer.php" />
         <option value="$PROJECT_DIR$/src/php/includes/functions.php" />
         <option value="$PROJECT_DIR$/src/css/app.css" />
         <option value="$PROJECT_DIR$/src/php/register.php" />
@@ -268,6 +261,7 @@
         <option value="$PROJECT_DIR$/src/views/header.php" />
         <option value="$PROJECT_DIR$/database.sql" />
         <option value="$PROJECT_DIR$/src/Entity/Posts.php" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -470,18 +464,18 @@
       <workItem from="1532336610241" duration="1698000" />
       <workItem from="1532442593704" duration="10009000" />
       <workItem from="1532506238732" duration="6584000" />
-      <workItem from="1532934039677" duration="14542000" />
+      <workItem from="1532934039677" duration="14859000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="389737000" />
+    <option name="totallyTimeSpent" value="390054000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19147758" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19147758" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -493,7 +487,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.52296627" side_tool="true" visible="true" weight="0.32756758" />
       <window_info anchor="bottom" id="Messages" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.47703376" visible="true" weight="0.32756758" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.47703376" visible="true" weight="0.32756758" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
@@ -512,7 +506,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/assets/img/slide_velib_resize.jpg" />
     <entry file="file://$PROJECT_DIR$/assets/img/2.jpg" />
     <entry file="file://$PROJECT_DIR$/images/blueBike.png" />
     <entry file="file://$PROJECT_DIR$/assets/img/1.jpg" />
@@ -715,6 +708,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
         </state>
       </provider>
     </entry>
