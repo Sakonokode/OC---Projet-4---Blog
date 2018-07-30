@@ -6,12 +6,17 @@
  * Time: 17:32
  */
 
-namespace App\router;
+namespace App\Core\Router;
 
 
-class route {
+class Route {
 
+    /**
+     * @var string $path
+     */
     private $path;
+
+
     private $callable;
     private $matches;
 
@@ -47,7 +52,7 @@ class route {
 
             $params = explode('#', $this->callable);
 
-            $controller = "App\\controller\\" . $params[0] . "Controller";
+            $controller = "App\\Controller\\" . $params[0] . "Controller";
 
             $controller = new $controller();
 

@@ -6,10 +6,11 @@
  * Time: 17:37
  */
 
+use App\Core\Router\Router;
 
-$router = new App\router\router($_SERVER['REQUEST_URI']);
+$router = new Router($_SERVER['REQUEST_URI']);
 
-$router->get('/', function(){ echo 'HomePage';});
+$router->get('/', "Home#indexAction", function(){ echo 'HomePage';});
 $router->get('/posts', function(){ echo 'Tous les billets'; });
 $router->get('/posts/:id', "Posts#show", function($id){ echo 'Afficher le billet' . $id; });
 $router->post('/posts/:id', function($id){ echo 'Poster un billet' . $id;});

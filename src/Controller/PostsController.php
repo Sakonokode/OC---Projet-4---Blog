@@ -6,7 +6,7 @@
  * Time: 19:06
  */
 
-namespace App\controller;
+namespace App\Controller;
 
 class PostsController {
 

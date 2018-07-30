@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="src/css/app.css" rel="stylesheet">
+    <link href="public/css/app.css" rel="stylesheet">
     <title>Blog d'Ecri-VIN</title>
 
 
@@ -23,7 +23,7 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li><a class="nav-link" href="../model/register.php">S'inscrire <span class="sr-only">(current)</span></a></li>
+            <li><a class="nav-link" href="../Repository/register.php">S'inscrire <span class="sr-only">(current)</span></a></li>
             <li><a class="nav-link" href="login.php">Se connecter</a></li>
 
         </ul>

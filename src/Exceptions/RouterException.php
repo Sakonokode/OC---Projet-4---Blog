@@ -6,10 +6,9 @@
  * Time: 17:40
  */
 
-namespace App\router;
+namespace App\Exceptions;
 
 
-class routerException extends \Error {
-
+class RouterException extends \Error {
 
 }
