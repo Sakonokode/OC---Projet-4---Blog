@@ -8,23 +8,37 @@
 
 namespace App\Entity;
 
+use App\Annotation\EntityAnnotation;
 
-class Users {
-
-    protected $id;
+/**
+ * Class Users
+ * @package App\Entity
+ * @EntityAnnotation(
+ *     table = "users"
+ * )
+ */
+class Users extends Entity
+{
+    /** @var null|string $nickname */
     protected $nickname;
+
     protected $reports;
+
     protected $email;
+
     protected $password;
 
-    public function getId() {
+
+    public function getId()
+    {
 
         return $this->id;
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
 
-        $id = (int) $id;
+        $id = (int)$id;
 
         if ($id > 0) {
 
@@ -34,12 +48,14 @@ class Users {
         return $this;
     }
 
-    public function getNickname() {
+    public function getNickname()
+    {
 
         return $this->nickname;
     }
 
-    public function setNickname($nickname) {
+    public function setNickname($nickname)
+    {
 
         if (is_string($nickname)) {
 
@@ -49,24 +65,28 @@ class Users {
         return $this;
     }
 
-    public function getReports() {
+    public function getReports()
+    {
 
         return $this->reports;
     }
 
-    public function setReports($reports) {
+    public function setReports($reports)
+    {
 
         $this->reports = $reports;
 
         return $this;
     }
 
-    public function getEmail() {
+    public function getEmail()
+    {
 
         return $this->email;
     }
 
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
 
         if (is_string($email)) {
 
@@ -76,12 +96,14 @@ class Users {
         return $this;
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
 
         return $this->password;
     }
 
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
 
         if (is_string($password)) {
 

@@ -8,8 +8,16 @@
 
 namespace App\Entity;
 
+use App\Annotation\EntityAnnotation;
 
-class Comments extends Postable {
+/**
+ * Class Comments
+ * @package App\Entity
+ * @EntityAnnotation(
+ *     table = "comments"
+ * )
+ */
+class Comments extends Entity {
 
     protected $reports;
 

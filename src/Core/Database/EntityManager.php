@@ -8,6 +8,11 @@
 
 namespace App\Core\Database;
 
+use App\Entity\Posts;
+use Doctrine\Common\Annotations\AnnotationReader;
+use App\Annotation\EntityAnnotation;
+use App\Entity\Entity;
+
 class EntityManager
 {
     /** @var string $dbHost */
@@ -25,12 +30,24 @@ class EntityManager
     /** @var \PDO $pdo */
     private $pdo;
 
+    /** @var AnnotationReader $reader */
+    private $reader;
+
+    /**
+     * EntityManager constructor.
+     * @param string $dbName
+     * @param string $dbUser
+     * @param string $dbPassword
+     * @param string $dbHost
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     */
     public function __construct(string $dbName, string $dbUser, string $dbPassword, string $dbHost)
     {
         $this->dbName = $dbName;
         $this->dbUser = $dbUser;
         $this->dbHost = $dbHost;
         $this->dbPassword = $dbPassword;
+        $this->reader = new AnnotationReader();
     }
 
     /**
@@ -52,5 +69,29 @@ class EntityManager
         }
 
         return $this->pdo;
+    }
+
+    /**
+     * @param Entity $entity
+     * @throws \ReflectionException
+     */
+    public function insert(Entity $entity) {
+        $className = get_class($entity);
+
+        $reflectionClass = new \ReflectionClass($className);
+
+        $annotations = $this->reader->getClassAnnotations($reflectionClass);
+
+        dump($annotations);
+
+        $sql = $annotations['insert'];
+        $sql = sprintf($sql, $entity->getId());
+
+        switch ($className) {
+            case Posts::class:
+                /** @var Posts $entity */
+                $sql = sprintf($sql, $entity->getIdPostable());
+                break;
+        }
     }
 }

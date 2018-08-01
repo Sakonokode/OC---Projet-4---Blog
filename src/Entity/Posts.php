@@ -8,8 +8,21 @@
 
 namespace App\Entity;
 
+use App\Annotation\EntityAnnotation as EntityAnnotation;
+use App\Entity\Entity as Entity;
+use App\Traits\Postable;
 
-class Posts extends Postable {
+/**
+ * Class Posts
+ * @package App\Entity
+ * @EntityAnnotation(
+ *     table = "posts",
+ *     insert = "INSERT INTO posts VALUES(%d, %d, %s, %s, %s, %s, DATE("NOW"), DATE("NOW"), NULL)"
+ * )
+ */
+class Posts extends Entity
+{
+    use Postable;
 
     protected $title;
     protected $comments;
@@ -17,12 +30,14 @@ class Posts extends Postable {
     protected $reports;
     protected $slug;
 
-    public function getTitle() {
+    public function getTitle()
+    {
 
         return $this->title;
     }
 
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
 
         if (is_string($title)) {
 
@@ -32,48 +47,56 @@ class Posts extends Postable {
         return $this;
     }
 
-    public function getComments() {
+    public function getComments()
+    {
 
         return $this->comments;
     }
 
-    public function setComments($comments) {
+    public function setComments($comments)
+    {
 
         $this->comments = $comments;
 
         return $this;
     }
 
-    public function getDescription() {
+    public function getDescription()
+    {
 
         return $this->description;
     }
 
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
 
         $this->description = $description;
 
         return $this;
     }
 
-    public function getReports() {
+    public function getReports()
+    {
 
         return $this->reports;
     }
 
-    public function setReports($reports) {
+    public function setReports($reports)
+    {
 
         $this->reports = $reports;
 
         return $this;
     }
 
-    public function getSlug() {
+    public function getSlug()
+    {
 
         return $this->slug;
     }
 
-    public function setSlug($slug) {
+    public function setSlug($slug)
+    {
 
         $this->slug = $slug;
 

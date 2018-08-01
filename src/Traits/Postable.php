@@ -6,9 +6,9 @@
  * Time: 13:27
  */
 
-namespace App\Entity;
+namespace App\Traits;
 
-abstract class Postable {
+trait Postable {
 
     protected $idPostable;
     protected $author;
