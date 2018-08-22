@@ -10,52 +10,62 @@ namespace App\Traits;
 
 trait Postable {
 
+    /** @var int $idPostable */
     protected $idPostable;
+
+    /** @var string $author */
     protected $author;
+
+    /** @var string $content */
     protected $content;
 
-    public function getIdPostable() {
-
+    /**
+     * @return int
+     */
+    public function getIdPostable(): int
+    {
         return $this->idPostable;
     }
 
-    public function setIdPostable($id) {
-
-        $id = (int) $id;
-
-        if ($id > 0) {
-
-            $this->idPostable = $id;
-        }
-
-        return $this;
+    /**
+     * @param int $idPostable
+     */
+    public function setIdPostable(int $idPostable): void
+    {
+        $this->idPostable = $idPostable;
     }
 
-    public function getAuthor() {
-
+    /**
+     * @return string
+     */
+    public function getAuthor(): string
+    {
         return $this->author;
     }
 
-    public function setAuthor($author)
+    /**
+     * @param string $author
+     */
+    public function setAuthor(string $author): void
     {
-
-        if (is_string($author)) {
-
-            $this->author = $author;
-        }
-
-        return $this;
+        $this->author = $author;
     }
 
-    public function getContent() {
-
+    /**
+     * @return string
+     */
+    public function getContent(): string
+    {
         return $this->content;
     }
 
-    public function setContent($content) {
-
+    /**
+     * @param string $content
+     */
+    public function setContent(string $content): void
+    {
         $this->content = $content;
-
-        return $this;
     }
+
+
 }

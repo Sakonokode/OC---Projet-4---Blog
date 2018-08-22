@@ -10,10 +10,10 @@ use App\Core\Router\Router;
 
 $router = new Router($_SERVER['REQUEST_URI']);
 
-$router->get('/', "Home#indexAction", function(){ echo 'HomePage';});
-$router->get('/posts', function(){ echo 'Tous les billets'; });
-$router->get('/posts/:id', "Posts#show", function($id){ echo 'Afficher le billet' . $id; });
-$router->post('/posts/:id', function($id){ echo 'Poster un billet' . $id;});
+$router->get('/', "Home#homeAction");
+$router->get('/posts', "Posts#showPostsAction");
+$router->get('/posts/:id', "Posts#showPostsAction", function($id){ echo 'Afficher le billet' . $id; });
+$router->post('/posts/:id', "Posts#newAction", function($id){ echo 'Poster un billet' . $id;});
 
 $router->run();
 

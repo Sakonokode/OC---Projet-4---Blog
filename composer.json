@@ -3,7 +3,8 @@
     "type": "project",
     "require": {
         "twig/twig": "^2.5",
-        "doctrine/annotations": "^1.6"
+        "doctrine/annotations": "^1.6",
+        "ext-pdo": "*"
     },
     "authors": [
         {

@@ -8,10 +8,14 @@
 
 namespace App\Controller;
 
-class HomeController extends AppController {
+class HomeController extends AbstractController {
 
-    public function indexAction() {
+    public function homeAction() {
 
+        /*
         $this->load();
+        */
+
+        echo $this->render('default/homepage.html.twig', array(null));
     }
 }

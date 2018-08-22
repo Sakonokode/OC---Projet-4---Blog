@@ -18,7 +18,9 @@ class Route {
 
 
     private $callable;
-    private $matches;
+
+    /** @var array $matches */
+    private $matches = [];
 
     public function __construct($path, $callable) {
 
@@ -52,10 +54,12 @@ class Route {
 
             $params = explode('#', $this->callable);
 
-            $controller = "App\\Controller\\" . $params[0] . "Controller";
+            $controller = sprintf("App\\Controller\\%sController", $params[0]);
 
             $controller = new $controller();
 
+            /* il faut creer un tableau associatif clef -> valeur, et l'envoyer a la place de $this->matches
+            afin de pouvoir passer les parametres et leurs valeurs */
             return call_user_func_array([$controller, $params[1]], $this->matches);
         }
 

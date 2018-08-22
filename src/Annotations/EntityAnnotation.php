@@ -6,19 +6,27 @@
  * Time: 19:58
  */
 
-namespace App\Annotation;
+namespace App\Annotations;
 
 use Doctrine\Common\Annotations\Annotation;
 
 /**
  * @Annotation
- * @Target("CLASS")
  */
-final class EntityAnnotation
+class EntityAnnotation
 {
     /** @var string $table */
     public $table;
 
     /** @var string $insert */
     public $insert;
+
+    /** @var string $get */
+    public $get;
+
+    /** @var string $update */
+    public $update;
+
+    /** @var string $delete */
+    public $delete;
 }

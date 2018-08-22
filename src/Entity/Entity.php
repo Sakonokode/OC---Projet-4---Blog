@@ -41,4 +41,10 @@ abstract class Entity
     {
         $this->id = $id;
     }
+
+    /**
+     * @param array $data
+     * @return Entity
+     */
+    abstract static function instantiate(array $data): Entity;
 }

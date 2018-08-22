@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="public/css/app.css" rel="stylesheet">
-    <title>Blog d'Ecri-VIN</title>
+    <title>Blog d'Ecrivain</title>
 
 
 </head>

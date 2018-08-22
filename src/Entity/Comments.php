@@ -8,7 +8,7 @@
 
 namespace App\Entity;
 
-use App\Annotation\EntityAnnotation;
+use App\Annotations\EntityAnnotation;
 
 /**
  * Class Comments
@@ -33,4 +33,17 @@ class Comments extends Entity {
 
         return $this;
     }
+
+    /**
+     * @param array $objectAsArray
+     * @return Entity
+     */
+    public static function instantiate(array $objectAsArray): Entity
+    {
+        $comment = new self();
+        $comment->setReports($objectAsArray['reports']);
+
+        return $comment;
+    }
+
 }
