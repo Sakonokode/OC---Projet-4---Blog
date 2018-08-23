@@ -1,7 +1,10 @@
-CREATE TABLE IF NOT EXISTS `blogwritter`.`postable` (
+CREATE TABLE IF NOT EXISTS `blogwritter`.`content` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `author` INT NOT NULL ,
 `content` VARCHAR(1024) NOT NULL ,
+`created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+`deleted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `blogwritter`.`users` (
@@ -16,7 +19,7 @@ PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `blogwritter`.`posts` (
 `id` INT NOT NULL AUTO_INCREMENT ,
-`id_postable` INT NOT NULL ,
+`id_content` INT NOT NULL ,
 `title` VARCHAR(255) NOT NULL ,
 `description` VARCHAR(1024) NOT NULL ,
 `slug` VARCHAR(255) NOT NULL ,
@@ -27,7 +30,7 @@ PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `blogwritter`.`comments` (
 `id` INT NOT NULL AUTO_INCREMENT ,
-`id_postable` INT NOT NULL ,
+`id_content` INT NOT NULL ,
 `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 `deleted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
@@ -35,7 +38,7 @@ PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `blogwritter`.`reports` (
 `id` INT NOT NULL AUTO_INCREMENT ,
-`id_postable` INT NOT NULL ,
+`id_content` INT NOT NULL ,
 `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 `deleted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
@@ -59,25 +62,25 @@ CREATE TABLE IF NOT EXISTS `blogwritter`.`posts_reports` (
 `id_report` INT NOT NULL ,
 PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
-ALTER TABLE `postable`
+ALTER TABLE `content`
 ADD CONSTRAINT `link_author_to_id`
 FOREIGN KEY (`author`)
 REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE `posts`
-ADD CONSTRAINT `link_id_postable_to_id`
-FOREIGN KEY (`id_postable`)
-REFERENCES `postable`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ADD CONSTRAINT `link_id_content_to_id`
+FOREIGN KEY (`id_content`)
+REFERENCES `content`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE `comments`
-ADD CONSTRAINT `link_id_postable_in_comments_to_id`
-FOREIGN KEY (`id_postable`)
-REFERENCES `postable`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ADD CONSTRAINT `link_id_content_in_comments_to_id`
+FOREIGN KEY (`id_content`)
+REFERENCES `content`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE `reports`
-ADD CONSTRAINT `link_reports_id_postable_to_id`
-FOREIGN KEY (`id_postable`)
-REFERENCES `postable`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ADD CONSTRAINT `link_reports_id_content_to_id`
+FOREIGN KEY (`id_content`)
+REFERENCES `content`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE `posts_reports`
 ADD CONSTRAINT `link_id_post_to_id`

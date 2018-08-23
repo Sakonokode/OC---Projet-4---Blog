@@ -21,11 +21,6 @@ abstract class Entity
     /** @var int $id */
     protected $id;
 
-    public function __construct()
-    {
-
-    }
-
     /**
      * @return int
      */
@@ -43,8 +38,32 @@ abstract class Entity
     }
 
     /**
-     * @param array $data
-     * @return Entity
+     * @return array
+     * @throws \ReflectionException
      */
-    abstract static function instantiate(array $data): Entity;
+    public function __toArray(): array
+    {
+        $array   = [];
+        $reflect = new \ReflectionClass($this);
+        $props   = $reflect->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED | \ReflectionProperty::IS_PRIVATE);
+
+        foreach ($props as $prop) {
+            if (is_a((object)$this->{$prop->getName()}, Entity::class)) {
+                $array[$prop->getName()] = $this->{$prop->getName()}->__toArray();
+                continue;
+            }
+
+            $array[$prop->getName()] = $this->{$prop->getName()};
+        }
+
+        return $array;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return sprintf('%s - %d', self::class, $this->id);
+    }
 }

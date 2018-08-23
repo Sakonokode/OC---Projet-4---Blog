@@ -8,8 +8,6 @@
 
 namespace App\Controller;
 
-use http\Env\Request;
-
 class PostsController extends AbstractController {
 
     public function getPosts() {

@@ -8,26 +8,28 @@
 
 namespace App\Core\Database;
 
-use App\Entity\Comments;
-use App\Entity\Posts;
-use App\Entity\Users;
 use Doctrine\Common\Annotations\AnnotationReader;
 use App\Entity\Entity;
 use PDO;
 
 class EntityManager
 {
+    const DB_HOST = '127.0.0.1';
+    const DB_USER = 'phpmyadmin';
+    const DB_PASS = 'root';
+    const DB_NAME = 'blogwritter';
+
     /** @var string $dbHost */
-    private $dbHost;
+    private $dbHost = self::DB_HOST;
 
     /** @var string $dbName */
-    private $dbName;
+    private $dbName = self::DB_NAME;
 
     /** @var string $dbUser */
-    private $dbUser;
+    private $dbUser = self::DB_USER;
 
     /** @var string $dbPassword */
-    private $dbPassword;
+    private $dbPassword = self::DB_PASS;
 
     /** @var \PDO $pdo */
     private $pdo;
@@ -35,22 +37,31 @@ class EntityManager
     /** @var AnnotationReader $reader */
     private $reader;
 
+    /** @var null|\PDOStatement $currentStatement */
+    private $currentStatement = null;
+
     /**
      * EntityManager constructor.
-     * @param string $dbName
-     * @param string $dbUser
-     * @param string $dbPassword
-     * @param string $dbHost
      * @throws \Doctrine\Common\Annotations\AnnotationException
      */
-    public function __construct(string $dbName, string $dbUser, string $dbPassword, string $dbHost)
+    public function __construct()
+    {
+        $this->reader = new AnnotationReader();
+        $this->initConnection();
+    }
+
+    /**
+     * @param string|null $dbName
+     * @param string|null $dbUser
+     * @param string|null $dbPassword
+     * @param string|null $dbHost
+     */
+    public function setConnectionData(string $dbName = null, string $dbUser = null, string $dbPassword = null, string $dbHost = null): void
     {
         $this->dbName = $dbName;
         $this->dbUser = $dbUser;
         $this->dbHost = $dbHost;
         $this->dbPassword = $dbPassword;
-        $this->reader = new AnnotationReader();
-        $this->initConnection();
     }
 
     /**
@@ -69,99 +80,69 @@ class EntityManager
             }
             $this->pdo = $pdo;
         }
+
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
     }
 
     /**
-     * @param Entity $entity
-     * @throws \ReflectionException
+     * @return AnnotationReader
      */
-    public function insert(Entity $entity)
+    public function getReader(): AnnotationReader
     {
-        $params = [];
-        #$className = array_reverse(explode('\\', get_class($entity)))[0];
-        $className = get_class($entity);
-        $reflectionClass = new \ReflectionClass($className);
-        dump($className);
-        $annotations = $this->reader->getClassAnnotations($reflectionClass);
-
-        dump($annotations);
-
-        $sql = $annotations[0]['insert'];
-
-        dump($annotations);
-
-        $sql = sprintf($sql, $entity->getId());
-
-        switch ($className) {
-            case Posts::class:
-                /** @var Posts $entity */
-                $sql = sprintf($sql, $entity->getIdPostable());
-                $params = $entity->__toArray();
-                break;
-            case Users::class:
-                break;
-            case Comments::class:
-                break;
-        }
-        dump($params);
-
-        $this->pdo->beginTransaction();
-        $stmt = $this->pdo->prepare($sql, $params);
-        if (!$this->pdo->exec($stmt)){
-            throw new \Exception("error in insert func");
-        }
-        $this->pdo->commit();
+        return $this->reader;
     }
 
     /**
-     * @param string $entityClassName
-     * @param int $id
-     * @throws \ReflectionException
-     * @return Entity
+     * @param string|null $name
+     * @return int
      */
-    public function get(string $entityClassName, int $id): Entity
+    public function getLastInsertedId(string $name = null): int
     {
-        $params = [];
-
-        $reflectionClass = new \ReflectionClass($entityClassName);
-
-        $annotations = $this->reader->getClassAnnotations($reflectionClass);
-
-        dump($annotations);
-
-        $sql = $annotations[0]['get'];
-        $sql = sprintf($sql, $id);
-
-        dump($annotations[0]['table']);
-
-        switch ($annotations[0]['table']) {
-            case Posts::class:
-                /** @var Posts $entity */
-                $sql = sprintf($sql, $entity->getIdPostable());
-                $params = $entity->__toArray();
-                break;
-            case Users::class:
-                /** @var Users $entity */
-                $sql = sprintf($sql, $entity->getId());
-                $params = $entity->__toArray();
-                break;
-            case Comments::class:
-                break;
-        }
-        dump($params);
-
-        $stmt = $this->pdo->prepare($sql, $params);
-
-        if (!$this->pdo->exec($stmt)) {
-            throw new \Exception("error in get func");
-        }
-
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-
-        $entity = Posts::instantiate($result);
-
-        return $entity;
+        return $this->pdo->lastInsertId($name);
     }
+
+    /**
+     * @return bool
+     */
+    public function beginTransaction(): bool
+    {
+        return $this->pdo->beginTransaction();
+
+    }
+
+    /**
+     * @param string $sql
+     */
+    public function prepare(string $sql): void
+    {
+        $this->currentStatement = $this->pdo->prepare($sql);
+    }
+
+    /**
+     * @param array $params
+     * @return bool
+     * @throws \Exception
+     */
+    public function execute(array $params): bool
+    {
+        $result = $this->currentStatement->execute($params);
+        if (!$result){
+            throw new \Exception("error in execute");
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return bool
+     */
+    public function commit(): bool
+    {
+        return $this->pdo->commit();
+    }
+
+
+
 
     /*
     public function all(string $entityClassName, array $orderBy = []): ?array

@@ -6,33 +6,36 @@
  * Time: 17:36
  */
 
-use App\Entity\Posts;
+use App\Entity\Content;
+use App\Entity\Post;
+use App\Repository\PostRepository;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 
 ini_set('display_errors', 1);
 require_once "vendor/autoload.php";
 require_once __DIR__ . '/src/Core/Router/routes.php';
 session_start();
-
-
+AnnotationRegistry::registerLoader('class_exists');
 
 try{
-    $post = new Posts();
+
+    $repository = new PostRepository();
+
+    $content = new Content();
+    $content->setContent('test');
+    $content->setAuthor('auteur test');
+
+    $post = new Post();
     $post->setTitle('titre test');
-    $post->setAuthor('auteur test');
-    $post->setContent('contenu test');
+    $post->setContent($content);
 
-    $dbName = "blogwritter";
-    $dbUser = 'phpmyadmin';
-    $dbPassword = 'root';
-    $dbHost = '127.0.0.1';
+    $repository->insert($post);
 
-    $em = new \App\Core\Database\EntityManager($dbName, $dbUser, $dbPassword, $dbHost);
-    $em->insert($post);
     throw new \Exception("toto");
 
 } catch (\Exception $e) {
     echo '<pre>';
-    echo sprintf('Exception - file<br/> %s, line<br/> %d, message<br/> %s <br/> Stack Trace <br/> %s', $e->getFile(), $e->getLine(), $e->getMessage(), $e->getTraceAsString());
+    echo sprintf('Exception - file<br/> %s,<br/> line %d, <br/>message %s, <br/>Stack Trace,<br/> %s', $e->getFile(), $e->getLine(), $e->getMessage(), $e->getTraceAsString());
     echo '</pre>';
     exit("error in index.php");
 }

@@ -6,34 +6,29 @@
  * Time: 13:27
  */
 
-namespace App\Traits;
+namespace App\Entity;
 
-trait Postable {
 
-    /** @var int $idPostable */
-    protected $idPostable;
+use App\Annotations\EntityAnnotation;
+
+/**
+ * Class Content
+ * @package App\Entity
+ * @EntityAnnotation(
+ *     table="content",
+ *     insert="INSERT INTO content VALUES(id, author, content, created_at, updated_at, deleted_at)",
+ *     get="",
+ *     update="",
+ *     delete=""
+ * )
+ */
+class Content extends Entity {
 
     /** @var string $author */
     protected $author;
 
     /** @var string $content */
     protected $content;
-
-    /**
-     * @return int
-     */
-    public function getIdPostable(): int
-    {
-        return $this->idPostable;
-    }
-
-    /**
-     * @param int $idPostable
-     */
-    public function setIdPostable(int $idPostable): void
-    {
-        $this->idPostable = $idPostable;
-    }
 
     /**
      * @return string
@@ -67,5 +62,15 @@ trait Postable {
         $this->content = $content;
     }
 
-
+    public function __toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'author' => $this->author,
+            'content' => $this->content,
+            'created_at' => $this->created,
+            'updated_at' => $this->updated,
+            'deleted_at' => $this->deleted
+        ];
+    }
 }

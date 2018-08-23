@@ -14,10 +14,11 @@ use App\Annotations\EntityAnnotation;
  * Class Comments
  * @package App\Entity
  * @EntityAnnotation(
- *     table = "comments"
+ *     table="comments",
+ *     hasContent="true"
  * )
  */
-class Comments extends Entity {
+class Comment extends Entity {
 
     protected $reports;
 

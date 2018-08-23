@@ -8,33 +8,35 @@
 
 namespace App\Entity;
 
-use App\Annotations\EntityAnnotation as EntityAnnotation;
+use App\Annotations\EntityAnnotation;
 use App\Entity\Entity as Entity;
-use App\Traits\Postable;
 
 /**
  * Class Posts
  * @package App\Entity
  * @EntityAnnotation(
  *     table="posts",
- *     insert="INSERT INTO posts VALUES(NULL, ?, ?, ?, NULL, DATE('NOW'), DATE('NOW'), NULL);",
+ *     insert="INSERT INTO posts VALUES(id, id_content, title, description, 'slug', NOW(), NOW(), NOW());",
  *     get="SELECT * FROM posts WHERE id=%d;",
  *     update="",
- *     delete=""
+ *     delete="",
+ *     hasContent=true,
+ *     repository="PostRepository"
  * )
  */
-class Posts extends Entity
+class Post extends Entity
 {
-    use Postable;
-
     /** @var null|string $title */
     protected $title;
 
     /** @var string $description */
     protected $description;
 
-    /** @var string $slug */
+    /** @var null|string $slug */
     protected $slug;
+
+    /** @var Content $content */
+    protected $content;
 
     /**
      * @return null|string
@@ -85,42 +87,18 @@ class Posts extends Entity
     }
 
     /**
-     * @param array $objectAsArray
-     * @return Posts
+     * @return Content
      */
-    public static function instantiate(array $objectAsArray): Entity
+    public function getContent(): Content
     {
-        $post = new self();
-        $post->setId($objectAsArray['id']);
-        $post->settitle($objectAsArray['title']);
-        $post->setDescription($objectAsArray['description']);
-        $post->setSlug($objectAsArray['slug']);
-
-        return $post;
+        return $this->content;
     }
 
     /**
-     * @return array
+     * @param Content $content
      */
-    public function __toArray(): array
+    public function setContent(Content $content): void
     {
-        return [
-            'id' => $this->id,
-            'id_postable' => $this->idPostable,
-            'title' => $this->title,
-            'description' => $this->description,
-            'slug' => $this->slug,
-            'created_at' => $this->created,
-            'updated_at' => $this->updated
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString(): string
-    {
-        // TODO: Implement __toString() method.
-        return (string)$this;
+        $this->content = $content;
     }
 }

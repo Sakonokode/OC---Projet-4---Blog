@@ -17,7 +17,7 @@ use App\Annotations\EntityAnnotation;
  *     table = "users"
  * )
  */
-class Users extends Entity
+class User extends Entity
 {
     /** @var null|string $nickname */
     protected $nickname;

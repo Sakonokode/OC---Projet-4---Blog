@@ -12,6 +12,7 @@ use Doctrine\Common\Annotations\Annotation;
 
 /**
  * @Annotation
+ * @Annotation\Target("CLASS")
  */
 class EntityAnnotation
 {
@@ -29,4 +30,13 @@ class EntityAnnotation
 
     /** @var string $delete */
     public $delete;
+
+    /** @var bool $hasContent */
+    public $hasContent = false;
+
+    /**
+     * @Annotation\Required()
+     * @var string $repository
+     */
+    public $repository = null;
 }
