@@ -16,10 +16,12 @@ use App\Annotations\EntityAnnotation;
  * @package App\Entity
  * @EntityAnnotation(
  *     table="content",
- *     insert="INSERT INTO content VALUES(id, author, content, created_at, updated_at, deleted_at)",
- *     get="",
+ *     insert="INSERT INTO content VALUES(id, author, content, NOW(), NOW(), NOW())",
+ *     find="",
  *     update="",
- *     delete=""
+ *     delete="",
+ *     hasContent=false,
+ *     repository="ContentRepository"
  * )
  */
 class Content extends Entity {
@@ -62,15 +64,4 @@ class Content extends Entity {
         $this->content = $content;
     }
 
-    public function __toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'author' => $this->author,
-            'content' => $this->content,
-            'created_at' => $this->created,
-            'updated_at' => $this->updated,
-            'deleted_at' => $this->deleted
-        ];
-    }
 }

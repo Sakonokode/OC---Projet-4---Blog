@@ -65,6 +65,9 @@ abstract class Repository
 
     abstract protected function insertEntity(Entity $entity): void;
 
+    abstract protected static function buildExecuteParams(Entity $entity): array;
+
+
     /**
      * @param $className
      * @param $annotation
@@ -115,12 +118,8 @@ abstract class Repository
 
         $annotations = $this->reader->getClassAnnotations($reflectionClass);
 
-        dump($annotations);
-
         $sql = $annotations[0]['get'];
         $sql = sprintf($sql, $id);
-
-        dump($annotations[0]['table']);
 
         switch ($annotations[0]['table']) {
             case Post::class:

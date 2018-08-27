@@ -22,8 +22,8 @@ class EntityAnnotation
     /** @var string $insert */
     public $insert;
 
-    /** @var string $get */
-    public $get;
+    /** @var string $find */
+    public $find;
 
     /** @var string $update */
     public $update;

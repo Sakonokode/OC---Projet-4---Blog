@@ -15,20 +15,28 @@ use App\Annotations\EntityAnnotation;
  * @package App\Entity
  * @EntityAnnotation(
  *     table="comments",
- *     hasContent="true"
+ *     insert="INSERT INTO comments VALUES(id, id_content, title, description, 'slug', NOW(), NOW(), NOW());",
+ *     find="SELECT * FROM comments WHERE id=%d;",
+ *     update="",
+ *     delete="",
+ *     hasContent=true,
+ *     repository="CommentRepository"
  * )
  */
-class Comment extends Entity {
+class Comment extends Entity
+{
 
     protected $reports;
 
 
-    public function getReports() {
+    public function getReports()
+    {
 
         return $this->reports;
     }
 
-    public function setReports($reports) {
+    public function setReports($reports)
+    {
 
         $this->reports = $reports;
 

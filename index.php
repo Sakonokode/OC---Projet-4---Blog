@@ -27,7 +27,11 @@ try{
 
     $post = new Post();
     $post->setTitle('titre test');
+    $post->setDescription('description test');
+    $post->setSlug('titre-test');
     $post->setContent($content);
+
+
 
     $repository->insert($post);
 

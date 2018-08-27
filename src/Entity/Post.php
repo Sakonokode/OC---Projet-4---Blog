@@ -16,8 +16,8 @@ use App\Entity\Entity as Entity;
  * @package App\Entity
  * @EntityAnnotation(
  *     table="posts",
- *     insert="INSERT INTO posts VALUES(id, id_content, title, description, 'slug', NOW(), NOW(), NOW());",
- *     get="SELECT * FROM posts WHERE id=%d;",
+ *     insert="INSERT INTO posts VALUES(NULL, :id_content, :title, :description, :slug, NOW(), NOW(), NOW());",
+ *     find="SELECT * FROM posts WHERE id=%d;",
  *     update="",
  *     delete="",
  *     hasContent=true,
@@ -57,7 +57,7 @@ class Post extends Entity
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -73,7 +73,7 @@ class Post extends Entity
     /**
      * @return string
      */
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -101,4 +101,5 @@ class Post extends Entity
     {
         $this->content = $content;
     }
+
 }

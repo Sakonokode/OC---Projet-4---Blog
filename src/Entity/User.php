@@ -15,6 +15,7 @@ use App\Annotations\EntityAnnotation;
  * @package App\Entity
  * @EntityAnnotation(
  *     table = "users"
+ *
  * )
  */
 class User extends Entity
