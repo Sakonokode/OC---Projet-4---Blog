@@ -29,45 +29,20 @@ class PostRepository extends Repository
      * @throws \ReflectionException
      * @throws \Exception
      */
-    protected function insertEntity(Entity $entity): void
+    public function insertEntity(Entity $entity): void
     {
         /** @var Post $entity */
         $content = $entity->getContent();
         $annotation = $this->readEntityAnnotation($entity);
 
-        $this->insert($content);
-        $params = self::buildExecuteParams($entity);
-        dump($params);
-        dump($annotation->insert);
+        $repository = new ContentRepository();
+        $repository->insertEntity($content);
+
+        $params = self::buildInsertExecuteParams($entity);
 
         $this->em->prepare($annotation->insert);
         $this->em->execute($params);
         $entity->setId($this->em->getLastInsertedId());
-
-        /* MON CODE
-        $repository = new ContentRepository();
-        /** @var Content $content */
-        /*
-        $content = new Content();
-        $annotation = $this->readEntityAnnotation($content);
-        $contentSql = $annotation->insert;
-        $repository->insertEntity($content, $contentSql);
-
-        /** @var Post $entity */
-        /*
-        $entity->setIdContent($content->getId());
-        /** @var Post $entity */
-        /*
-        $params = $entity->__toArray();
-        unset($params['content']);
-
-        $this->em->prepare($sql);
-        $this->em->execute($params);
-
-        $entity->setId($this->em->getLastInsertedId());
-
-        dump($entity);
-        */
     }
 
     /**
@@ -75,7 +50,7 @@ class PostRepository extends Repository
      * @return array
      * @throws \Exception
      */
-    protected static function buildExecuteParams(Entity $post): array
+    public static function buildInsertExecuteParams(Entity $post): array
     {
         /** @var Post $post */
         if ($post->getContent()->getId() === null) {
@@ -90,5 +65,79 @@ class PostRepository extends Repository
         ];
 
         return $params;
+    }
+
+    /**
+     * @param Entity $post
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \ReflectionException
+     * @throws \Exception
+     */
+    public function deleteEntity(Entity $post): void
+    {
+        /** @var Post $post */
+        $repository = new ContentRepository();
+        $repository->deleteEntity($post->getContent());
+
+        $annotation = $this->readEntityAnnotation($post);
+        $params =  ['id' => $post->getId()];
+
+        $sql = <<<EOT
+        DELETE FROM $annotation->table WHERE id=:id;
+EOT;
+
+        $this->em->prepare($sql);
+        $this->em->execute($params);
+    }
+
+    /**
+     * @param Entity $entity
+     */
+    public function updateEntity(Entity $entity): void
+    {
+        // TODO: Implement updateEntity() method.
+    }
+
+    /**
+     * @param int $id
+     * @return Entity|null
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     */
+    public function findEntity(int $id): ?Entity
+    {
+        // Syntaxe Heredoc
+        // Here we use SQL Left join
+        $sql = <<<EOT
+        SELECT p.id AS post_id, p.id_content AS post_id_content, p.title AS post_title, p.description AS post_description, p.slug AS post_slug, p.created_at AS post_created_at, p.updated_at AS post_updated_at, p.deleted_at AS post_deleted_at
+        FROM posts AS p
+        WHERE p.id = $id
+EOT;
+
+        $this->em->query($sql);
+        $result = $this->em->fetchAll();
+
+        if (!empty($result)) {
+            $post = new Post();
+            $post->setId($result[0]->post_id);
+            $post->setTitle($result[0]->post_title);
+            $post->setDescription($result[0]->post_description);
+            $post->setSlug($result[0]->post_slug);
+            $post->setCreated(new \DateTime($result[0]->post_created_at));
+            $post->setUpdated(new \DateTime($result[0]->post_updated_at));
+
+            if ($result[0]->post_deleted_at !== null) {
+                $post->setDeleted(new \DateTime($result[0]->post_deleted_at));
+            }
+
+            $contentRepository = new ContentRepository();
+            /** @var Content $content */
+            $content = $contentRepository->findEntity($result[0]->post_id_content);
+
+            $post->setContent($content);
+
+            return $post;
+        }
+
+        return null;
     }
 }

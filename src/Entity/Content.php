@@ -16,34 +16,41 @@ use App\Annotations\EntityAnnotation;
  * @package App\Entity
  * @EntityAnnotation(
  *     table="content",
- *     insert="INSERT INTO content VALUES(id, author, content, NOW(), NOW(), NOW())",
- *     find="",
+ *     insert="INSERT INTO content VALUES(NULL, :author, :content, NOW(), NOW(), NOW());",
  *     update="",
- *     delete="",
+ *     delete="DELETE FROM content WHERE id=:id;",
  *     hasContent=false,
  *     repository="ContentRepository"
  * )
  */
-class Content extends Entity {
-
-    /** @var string $author */
+class Content extends Entity
+{
+    /** @var User $author */
     protected $author;
 
     /** @var string $content */
     protected $content;
 
     /**
-     * @return string
+     * Content constructor.
      */
-    public function getAuthor(): string
+    public function __construct()
+    {
+        $this->author = new User();
+    }
+
+    /**
+     * @return User
+     */
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
     /**
-     * @param string $author
+     * @param User $author
      */
-    public function setAuthor(string $author): void
+    public function setAuthor(User $author): void
     {
         $this->author = $author;
     }

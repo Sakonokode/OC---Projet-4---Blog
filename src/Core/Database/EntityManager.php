@@ -41,13 +41,37 @@ class EntityManager
     private $currentStatement = null;
 
     /**
+     * @return null|\PDOStatement
+     */
+    public function getCurrentStatement(): ?\PDOStatement
+    {
+        return $this->currentStatement;
+    }
+
+    /** @var null|EntityManager $instance */
+    private static $instance = null;
+
+    /**
      * EntityManager constructor.
      * @throws \Doctrine\Common\Annotations\AnnotationException
      */
-    public function __construct()
+    private function __construct()
     {
         $this->reader = new AnnotationReader();
         $this->initConnection();
+    }
+
+    /**
+     * @return EntityManager
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     */
+    public static function getInstance(): EntityManager
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
     /**
@@ -141,29 +165,40 @@ class EntityManager
         return $this->pdo->commit();
     }
 
-
-
-
-    /*
-    public function all(string $entityClassName, array $orderBy = []): ?array
+    /**
+     * @param string $sql
+     */
+    public function query(string $sql): void
     {
-        # Grace a entity class name je lit l'annotation sur l'entite
-        #$annotation = Code pour lire l'annotation
-
-        $params = [];
-
-        $reflectionClass = new \ReflectionClass($entityClassName);
-
-        $annotations = $this->reader->getClassAnnotations($reflectionClass);
-
-        dump($annotations);
-
-        $sql = sprintf('SELECT * FROM %s', $annotations[0]['table']);
-        isset($orderBy['column'] ? $column = isset($orderBy['column']) : $column = 'created_at';
-        isset($orderBy['order'] ? $order = isset($orderBy['order']) : $order = 'desc';
-        $sql = sprintf('%s ORDER BY %s %s', $sql, $column, $order);
-
-        return $this->pdo->exec($sql, PDO::FETCH_ASSOC);
+        if (($stmt = $this->pdo->query($sql)) !== false) {
+            $this->currentStatement = $stmt;
+        }
     }
-    */
+
+    /**
+     * @param string $fetchStyle
+     * @return array
+     */
+    public function fetchAll(string $fetchStyle = PDO::FETCH_CLASS): array
+    {
+        return $this->currentStatement->fetchAll($fetchStyle);
+    }
+
+    /**
+     * To avoid EntityManager cloning, we overload the magic __clone function
+     * @return null
+     */
+    public function __clone()
+    {
+        return null;
+    }
+
+    /**
+     * To avoid EntityManager cloning, we overload the magic __wakeup function
+     * @return null
+     */
+    public function __wakeup()
+    {
+        return null;
+    }
 }

@@ -17,9 +17,8 @@ use App\Entity\Entity as Entity;
  * @EntityAnnotation(
  *     table="posts",
  *     insert="INSERT INTO posts VALUES(NULL, :id_content, :title, :description, :slug, NOW(), NOW(), NOW());",
- *     find="SELECT * FROM posts WHERE id=%d;",
- *     update="",
- *     delete="",
+ *     update="UPDATE posts SET title=:title, description=:description, slug=:slug, NOW()=:updated_at WHERE id=:id;",
+ *     delete="DELETE FROM posts WHERE id=:id;",
  *     hasContent=true,
  *     repository="PostRepository"
  * )
@@ -37,6 +36,14 @@ class Post extends Entity
 
     /** @var Content $content */
     protected $content;
+
+    /**
+     * Post constructor.
+     */
+    public function __construct()
+    {
+        $this->content = new Content();
+    }
 
     /**
      * @return null|string

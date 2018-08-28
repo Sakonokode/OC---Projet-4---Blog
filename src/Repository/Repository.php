@@ -29,7 +29,7 @@ abstract class Repository
      */
     public function __construct()
     {
-        $this->em = new EntityManager();
+        $this->em = EntityManager::getInstance();
     }
 
     /**
@@ -45,17 +45,19 @@ abstract class Repository
         /** @var EntityAnnotation $annotation */
         return $this->em->getReader()->getClassAnnotations($reflectionClass)[0];
     }
+
     /**
      * @param Entity $entity
      * @throws \ReflectionException
      * @throws \Exception
      */
-    public function insert(Entity $entity)
+    public function insert(Entity $entity): void
     {
         $annotation = $this->readEntityAnnotation($entity);
+        $className = "App\\Repository\\" . $annotation->repository;
+
         $this->em->beginTransaction();
 
-        $className = "App\\Repository\\" . $annotation->repository;
         /** @var Repository $repository */
         $repository = new $className();
         $repository->insertEntity($entity);
@@ -63,89 +65,73 @@ abstract class Repository
         $this->em->commit();
     }
 
-    abstract protected function insertEntity(Entity $entity): void;
-
-    abstract protected static function buildExecuteParams(Entity $entity): array;
-
-
     /**
-     * @param $className
-     * @param $annotation
+     * @param Entity $entity
      * @throws \ReflectionException
+     * @throws \Exception
      */
-    private function insertByClassName($className, $annotation)
+    public function delete(Entity $entity): void
     {
-        $sql = $annotation[0]->insert;
-        $sql = sprintf($sql);
+        $annotation = $this->readEntityAnnotation($entity);
+        $className = "App\\Repository\\" . $annotation->repository;
 
-        switch ($className) {
-            case Content::class:
-                /** @var Content $entity */
-                $params = $entity->__toArray();
-                $this->em->prepare($sql);
-                $this->em->execute($params);
-                break;
-            case Post::class:
-                /** @var Post $entity */
+        $this->em->beginTransaction();
 
-                $this->insertByClassName($content, $annotation);
-                $idContent = $this->em->getLastInsertedId($annotation[0]->table);
-                $this->em->prepare($sql);
+        /** @var Repository $repository */
+        $repository = new $className();
+        $repository->deleteEntity($entity);
 
-                $entity->setId($idContent);
-                /** @var Post $entity */
-                $params = $entity->__toArray();
-                $this->em->execute($params);
-                break;
-            case User::class:
-                break;
-            case Comment::class:
-                break;
-        }
+
+        $this->em->commit();
     }
 
     /**
-     * @param string $entityClassName
+     * @param string $className
      * @param int $id
-     * @throws \ReflectionException
      * @return Entity
+     * @throws \ReflectionException
+     * @throws \Exception
      */
-    public function get(string $entityClassName, int $id): Entity
+    public function find(string $className, int $id): ?Entity
     {
-        $params = [];
+        $entity = new $className();
+        $annotation = $this->readEntityAnnotation($entity);
+        $repositoryClassName = "App\\Repository\\" . $annotation->repository;
 
-        $reflectionClass = new \ReflectionClass($entityClassName);
-
-        $annotations = $this->reader->getClassAnnotations($reflectionClass);
-
-        $sql = $annotations[0]['get'];
-        $sql = sprintf($sql, $id);
-
-        switch ($annotations[0]['table']) {
-            case Post::class:
-                /** @var Post $entity */
-                $sql = sprintf($sql, $entity->getIdPostable());
-                $params = $entity->__toArray();
-                break;
-            case User::class:
-                /** @var User $entity */
-                $sql = sprintf($sql, $entity->getId());
-                $params = $entity->__toArray();
-                break;
-            case Comment::class:
-                break;
-        }
-        dump($params);
-
-        $stmt = $this->pdo->prepare($sql);
-
-        if (!$stmt->execute($params)) {
-            throw new \Exception("error in get func");
-        }
-
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        $entity = Post::instantiate($result);
+        /** @var Repository $repository */
+        $repository = new $repositoryClassName();
+        $entity = $repository->findEntity($id);
 
         return $entity;
     }
+
+    /**
+     * @param Entity $entity
+     * @param int $id
+     * @throws \ReflectionException
+     */
+    public function update(Entity $entity, int $id): void
+    {
+        $annotation = $this->readEntityAnnotation($entity);
+        $className = "App\\Repository\\" . $annotation->repository;
+
+        $this->em->beginTransaction();
+
+        /** @var Repository $repository */
+        $repository = new $className();
+        $repository->updateEntity($entity);
+
+        $this->em->commit();
+    }
+
+    abstract public function insertEntity(Entity $entity): void;
+
+    abstract public function updateEntity(Entity $entity): void;
+
+    abstract public static function buildInsertExecuteParams(Entity $entity): array;
+
+    abstract public function deleteEntity(Entity $entity): void;
+
+    abstract public function findEntity(int $id): ?Entity;
+
 }

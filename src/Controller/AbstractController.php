@@ -34,20 +34,6 @@ abstract class AbstractController
     protected $twig;
 
     /**
-     * @return EntityManager
-     * @throws \Doctrine\Common\Annotations\AnnotationException
-     */
-    public static function getEntityManager()
-    {
-
-        if (self::$entityManager === null) {
-
-            self::$entityManager = new EntityManager(self::$dbName, self::$dbHost, self::$dbUser, self::$dbPassword);
-        }
-        return self::$entityManager;
-    }
-
-    /**
      * @param $view
      * @param array $data
      * @return string

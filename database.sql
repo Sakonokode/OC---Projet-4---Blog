@@ -112,3 +112,6 @@ ADD CONSTRAINT `link_posts_comments_id_post_to_id`
 FOREIGN KEY (`id_post`)
 REFERENCES `posts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
+ALTER TABLE `content` CHANGE `content` `content` TEXT
+CHARACTER SET latin1
+COLLATE latin1_swedish_ci NOT NULL;

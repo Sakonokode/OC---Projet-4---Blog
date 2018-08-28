@@ -8,7 +8,9 @@
 
 use App\Entity\Content;
 use App\Entity\Post;
+use App\Entity\User;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
 ini_set('display_errors', 1);
@@ -21,19 +23,32 @@ try{
 
     $repository = new PostRepository();
 
+    $userRepository = new UserRepository();
+    /** @var User $user */
+    $user = $userRepository->findEntity(1);
+
     $content = new Content();
     $content->setContent('test');
-    $content->setAuthor('auteur test');
+    $content->setAuthor($user);
+    #$content->setId(6);
 
     $post = new Post();
     $post->setTitle('titre test');
     $post->setDescription('description test');
     $post->setSlug('titre-test');
     $post->setContent($content);
-
+    #$post->setId(6);
 
 
     $repository->insert($post);
+    #dump("POST SUCCESSFULLY ADDED TO DATABASE\n");
+
+    #$repository->delete($post);
+    #dump("POST SUCCESSFULLY DELETED FROM DATABASE\n");
+
+    $post = $repository->find(Post::class, 1);
+    dump($post);
+
 
     throw new \Exception("toto");
 
