@@ -14,7 +14,9 @@ use App\Annotations\EntityAnnotation;
  * Class Users
  * @package App\Entity
  * @EntityAnnotation(
- *     table = "users"
+ *     table="users",
+ *     insert="INSERT INTO users VALUES(NULL, :nickname, :email, :password, :role, NOW(), NOW(), NOW())",
+ *     repository="UserRepository"
  *
  * )
  */
@@ -30,6 +32,28 @@ class User extends Entity
 
     /** @var string $password */
     protected $password;
+
+    /** One admin is insert in DB when executing database.sql.
+     * By default we set role to USER
+     * @var int $role
+     */
+    protected $role = 2;
+
+    /**
+     * @return int
+     */
+    public function getRole(): int
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param int $role
+     */
+    public function setRole(int $role): void
+    {
+        $this->role = $role;
+    }
 
     /**
      * @return null|string

@@ -62,6 +62,7 @@ class EntityManager
     }
 
     /**
+     * Here we build a Singleton, the aim is to keep a unique EntityManager to avoid many connections to the Database
      * @return EntityManager
      * @throws \Doctrine\Common\Annotations\AnnotationException
      */

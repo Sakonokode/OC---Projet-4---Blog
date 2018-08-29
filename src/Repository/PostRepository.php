@@ -106,7 +106,6 @@ EOT;
     public function findEntity(int $id): ?Entity
     {
         // Syntaxe Heredoc
-        // Here we use SQL Left join
         $sql = <<<EOT
         SELECT p.id AS post_id, p.id_content AS post_id_content, p.title AS post_title, p.description AS post_description, p.slug AS post_slug, p.created_at AS post_created_at, p.updated_at AS post_updated_at, p.deleted_at AS post_deleted_at
         FROM posts AS p

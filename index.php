@@ -21,11 +21,18 @@ AnnotationRegistry::registerLoader('class_exists');
 
 try{
 
-    $repository = new PostRepository();
+    $postRepository = new PostRepository();
 
     $userRepository = new UserRepository();
-    /** @var User $user */
-    $user = $userRepository->findEntity(1);
+    #$user = $userRepository->findEntity(1);
+
+
+    $user = new User();
+    $user->setNickname('John Doe');
+    $user->setEmail('johndoe@domain.com');
+    $user->setPassword('password');
+    #$user->setId(2);
+
 
     $content = new Content();
     $content->setContent('test');
@@ -40,14 +47,28 @@ try{
     #$post->setId(6);
 
 
-    $repository->insert($post);
+    #$postRepository->insert($post);
     #dump("POST SUCCESSFULLY ADDED TO DATABASE\n");
 
-    #$repository->delete($post);
+    #$postRepository->delete($post);
     #dump("POST SUCCESSFULLY DELETED FROM DATABASE\n");
 
-    $post = $repository->find(Post::class, 1);
-    dump($post);
+    #$post = $postRepository->find(Post::class, 1);
+    #dump($post);
+
+    $userRepository->insert($user);
+    #dump($user,'USER SUCCESSFULLY INSERTED FROM DATABASE');
+
+    #$userRepository->delete($user);
+    #dump('USER SUCCESSFULLY DELETED FROM DATABASE');
+
+    $user->setNickname('new_John Doe');
+    $user->setEmail('new_johndoe@domain.com');
+    $user->setPassword('new_password');
+    $user->setRole(2);
+
+    $userRepository->updateEntity($user);
+    dump($user, 'USER SUCCESFFULLY UPDATED FROM DATABSE');
 
 
     throw new \Exception("toto");

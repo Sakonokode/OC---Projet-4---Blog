@@ -17,35 +17,75 @@ class UserRepository extends Repository
 
     /**
      * @param Entity $entity
+     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function insertEntity(Entity $entity): void
     {
-        // TODO: Implement insertEntity() method.
+        $annotation = $this->readEntityAnnotation($entity);
+        $params = self::buildInsertExecuteParams($entity);
+
+        $this->em->prepare($annotation->insert);
+        $this->em->execute($params);
+
+        $entity->setId($this->em->getLastInsertedId());
     }
 
     /**
-     * @param Entity $entity
+     * @param Entity $user
+     * @throws \ReflectionException
+     * @throws \Exception
      */
-    public function updateEntity(Entity $entity): void
+    public function updateEntity(Entity $user): void
     {
-        // TODO: Implement updateEntity() method.
+        $annotation = $this->readEntityAnnotation($user);
+        $params = self::buildInsertExecuteParams($user);
+
+        $sql = <<<EOT
+        UPDATE $annotation->table
+        SET  users.nickname=$nickname, users.email=$email, users.password=$password, users.role=$role
+        WHERE users.id=$id;
+
+EOT;
+
+        $this->em->prepare($sql);
+        $this->em->execute($params);
     }
 
     /**
-     * @param Entity $entity
+     * @param Entity $user
      * @return array
      */
-    public static function buildInsertExecuteParams(Entity $entity): array
+    public static function buildInsertExecuteParams(Entity $user): array
     {
-        // TODO: Implement buildInsertExecuteParams() method.
+        /** @var User $user */
+        $params = [
+            'nickname' => $user->getNickname(),
+            'email' => $user->getEmail(),
+            'password' => $user->getPassword(),
+            'role' => $user->getRole()
+        ];
+
+        return $params;
     }
 
     /**
-     * @param Entity $entity
+     * @param Entity $user
+     * @throws \ReflectionException
+     * @throws \Exception
      */
-    public function deleteEntity(Entity $entity): void
+    public function deleteEntity(Entity $user): void
     {
-        // TODO: Implement deleteEntity() method.
+        /** @var User $user */
+        $annotation = $this->readEntityAnnotation($user);
+        dump($user);
+        $params =  ['id' => $user->getId()];
+
+        $sql = <<<EOT
+        DELETE FROM $annotation->table WHERE id=:id;
+EOT;
+        $this->em->prepare($sql);
+        $this->em->execute($params);
     }
 
     /**
@@ -55,7 +95,6 @@ class UserRepository extends Repository
     public function findEntity(int $id): ?Entity
     {
         // Syntaxe Heredoc
-        // Here we use SQL Left join
         $sql = <<<EOT
         SELECT u.id AS user_id, u.nickname AS user_nickname, u.email AS user_email, u.password AS user_password, u.created_at AS user_created_at, u.updated_at AS user_updated_at, u.deleted_at AS user_deleted_at
         FROM users AS u  

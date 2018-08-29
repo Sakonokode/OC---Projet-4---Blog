@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `blogwritter`.`users` (
 `nickname` VARCHAR(20) NOT NULL ,
 `email` VARCHAR(40) NOT NULL ,
 `password` VARCHAR(20) NOT NULL ,
+`role` INT NOT NULL ,
 `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 `deleted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
@@ -115,3 +116,6 @@ REFERENCES `posts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE `content` CHANGE `content` `content` TEXT
 CHARACTER SET latin1
 COLLATE latin1_swedish_ci NOT NULL;
+
+INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `role`, `created_at`, `updated_at`, `deleted_at`)
+VALUES (NULL, 'admin', 'admin@domain.com', 'admin', '1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)

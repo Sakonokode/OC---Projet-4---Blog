@@ -57,7 +57,6 @@ abstract class Repository
         $className = "App\\Repository\\" . $annotation->repository;
 
         $this->em->beginTransaction();
-
         /** @var Repository $repository */
         $repository = new $className();
         $repository->insertEntity($entity);
@@ -80,7 +79,6 @@ abstract class Repository
         /** @var Repository $repository */
         $repository = new $className();
         $repository->deleteEntity($entity);
-
 
         $this->em->commit();
     }
@@ -107,10 +105,9 @@ abstract class Repository
 
     /**
      * @param Entity $entity
-     * @param int $id
      * @throws \ReflectionException
      */
-    public function update(Entity $entity, int $id): void
+    public function update(Entity $entity): void
     {
         $annotation = $this->readEntityAnnotation($entity);
         $className = "App\\Repository\\" . $annotation->repository;
