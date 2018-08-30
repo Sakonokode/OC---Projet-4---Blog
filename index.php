@@ -46,8 +46,8 @@ try{
     $post->setContent($content);
     #$post->setId(6);
 
-
-    #$postRepository->insert($post);
+    $userRepository->insert($user);
+    $postRepository->insert($post);
     #dump("POST SUCCESSFULLY ADDED TO DATABASE\n");
 
     #$postRepository->delete($post);
@@ -55,9 +55,6 @@ try{
 
     #$post = $postRepository->find(Post::class, 1);
     #dump($post);
-
-    $userRepository->insert($user);
-    #dump($user,'USER SUCCESSFULLY INSERTED FROM DATABASE');
 
     #$userRepository->delete($user);
     #dump('USER SUCCESSFULLY DELETED FROM DATABASE');
@@ -67,8 +64,21 @@ try{
     $user->setPassword('new_password');
     $user->setRole(2);
 
-    $userRepository->updateEntity($user);
-    dump($user, 'USER SUCCESFFULLY UPDATED FROM DATABSE');
+    $content->setContent('updated test');
+    $content->setAuthor($user);
+
+    $post->setTitle('updated titre test');
+    $post->setDescription('updated description test');
+    $post->setSlug('updated-title-test');
+    $post->setContent($content);
+
+    #$userRepository->updateEntity($user);
+    #dump($user, 'USER SUCCESFFULLY UPDATED FROM DATABASE');
+
+    $postRepository->update($post);
+    dump($post);
+
+
 
 
     throw new \Exception("toto");

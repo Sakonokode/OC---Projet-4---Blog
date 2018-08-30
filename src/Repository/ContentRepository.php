@@ -26,21 +26,21 @@ class ContentRepository extends Repository
     }
 
     /**
-     * @param Entity $entity
+     * @param Entity $content
      * @throws \ReflectionException
      * @throws \Exception
      */
-    public function insertEntity(Entity $entity): void
+    public function insertEntity(Entity $content): void
     {
         /** @var Content $entity */
-        $annotation = $this->readEntityAnnotation($entity);
+        $annotation = $this->readEntityAnnotation($content);
 
-        $params = self::buildInsertExecuteParams($entity);
+        $params = self::buildInsertExecuteParams($content);
 
         $this->em->prepare($annotation->insert);
         $this->em->execute($params);
 
-        $entity->setId($this->em->getLastInsertedId());
+        $content->setId($this->em->getLastInsertedId());
     }
 
     /**
@@ -58,10 +58,41 @@ class ContentRepository extends Repository
 
     /**
      * @param Entity $entity
+     * @return array
      */
-    public function updateEntity(Entity $entity): void
+    public static function buildUpdateExecuteParams(Entity $entity): array
     {
-        // TODO: Implement updateEntity() method.
+        /** @var Content $entity */
+        return [
+            'author' => $entity->getAuthor()->getId(),
+            'content' => $entity->getContent(),
+            'id' => $entity->getId(),
+        ];
+    }
+
+    /**
+     * @param Entity $content
+     * @throws \ReflectionException
+     * @throws \Exception
+     */
+    public function updateEntity(Entity $content): void
+    {
+        /** @var Content $content */
+
+        $annotation = $this->readEntityAnnotation($content);
+        $params = self::buildUpdateExecuteParams($content);
+
+        dump($params);
+
+        $sql = <<<EOT
+        UPDATE $annotation->table
+        SET  content.author=:author, content.content=:content
+        WHERE content.id=:id;
+
+EOT;
+
+        $this->em->prepare($sql);
+        $this->em->execute($params);
     }
 
     /**

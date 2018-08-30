@@ -69,6 +69,29 @@ class PostRepository extends Repository
 
     /**
      * @param Entity $post
+     * @return array
+     * @throws \Exception
+     */
+    public static function buildUpdateExecuteParams(Entity $post): array
+    {
+        /** @var Post $post */
+        if ($post->getContent()->getId() === null) {
+            throw new \Exception('Missing content id');
+        }
+
+        $params = [
+            'id_content' => $post->getContent()->getId(),
+            'title' => $post->getTitle(),
+            'description' => $post->getDescription(),
+            'slug' => $post->getSlug(),
+            'id' => $post->getId(),
+        ];
+
+        return $params;
+    }
+
+    /**
+     * @param Entity $post
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
      * @throws \Exception
@@ -91,11 +114,31 @@ EOT;
     }
 
     /**
-     * @param Entity $entity
+     * @param Entity $post
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \ReflectionException
+     * @throws \Exception
      */
-    public function updateEntity(Entity $entity): void
+    public function updateEntity(Entity $post): void
     {
-        // TODO: Implement updateEntity() method.
+        /** @var Post $post */
+        $repository = new ContentRepository();
+        $repository->updateEntity($post->getContent());
+
+        $annotation = $this->readEntityAnnotation($post);
+        $params = self::buildUpdateExecuteParams($post);
+
+        dump($params);
+
+        $sql = <<<EOT
+        UPDATE $annotation->table
+        SET  posts.id_content=:id_content, posts.title=:title, posts.description=:description, posts.slug=:slug
+        WHERE posts.id=:id;
+
+EOT;
+
+        $this->em->prepare($sql);
+        $this->em->execute($params);
     }
 
     /**

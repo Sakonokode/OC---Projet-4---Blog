@@ -38,13 +38,14 @@ class UserRepository extends Repository
      */
     public function updateEntity(Entity $user): void
     {
+        /** @var User $user */
         $annotation = $this->readEntityAnnotation($user);
-        $params = self::buildInsertExecuteParams($user);
+        $params = self::buildUpdateExecuteParams($user);
 
         $sql = <<<EOT
         UPDATE $annotation->table
-        SET  users.nickname=$nickname, users.email=$email, users.password=$password, users.role=$role
-        WHERE users.id=$id;
+        SET  users.nickname=:nickname, users.email=:email, users.password=:password, users.role=:role
+        WHERE users.id=:id;
 
 EOT;
 
@@ -64,6 +65,24 @@ EOT;
             'email' => $user->getEmail(),
             'password' => $user->getPassword(),
             'role' => $user->getRole()
+        ];
+
+        return $params;
+    }
+
+    /**
+     * @param Entity $user
+     * @return array
+     */
+    public static function buildUpdateExecuteParams(Entity $user): array
+    {
+        /** @var User $user */
+        $params = [
+            'nickname' => $user->getNickname(),
+            'email' => $user->getEmail(),
+            'password' => $user->getPassword(),
+            'role' => $user->getRole(),
+            'id' => $user->getId(),
         ];
 
         return $params;
