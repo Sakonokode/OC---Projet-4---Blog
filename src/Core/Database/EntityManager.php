@@ -10,6 +10,7 @@ namespace App\Core\Database;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use App\Entity\Entity;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use PDO;
 
 class EntityManager

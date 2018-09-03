@@ -11,7 +11,7 @@ use App\Core\Router\Router;
 $router = new Router($_SERVER['REQUEST_URI']);
 
 $router->get('/', "Home#homeAction");
-$router->get('/posts', "Posts#showPostsAction");
+$router->get('/posts', "Posts#listPostsAction");
 $router->get('/posts/:id', "Posts#showPostsAction", function($id){ echo 'Afficher le billet' . $id; });
 $router->post('/posts/:id', "Posts#newAction", function($id){ echo 'Poster un billet' . $id;});
 

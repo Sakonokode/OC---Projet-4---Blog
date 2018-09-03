@@ -12,6 +12,10 @@ namespace App\Repository;
 use App\Entity\Entity;
 use App\Entity\User;
 
+/**
+ * Class UserRepository
+ * @package App\Repository
+ */
 class UserRepository extends Repository
 {
 
@@ -140,5 +144,15 @@ EOT;
         }
 
         return null;
+    }
+
+    public function findAllEntity(): array
+    {
+        // TODO: Implement findAllEntity() method.
+    }
+
+    public function toEntity(array $values): Entity
+    {
+        // TODO: Implement toEntity() method.
     }
 }

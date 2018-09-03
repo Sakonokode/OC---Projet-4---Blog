@@ -104,6 +104,22 @@ abstract class Repository
     }
 
     /**
+     * @param string $className
+     * @return array
+     * @throws \ReflectionException
+     */
+    public function findAll(string $className): array
+    {
+        $entity = new $className();
+        $annotation = $this->readEntityAnnotation($entity);
+        $repositoryClassName = "App\\Repository\\" . $annotation->repository;
+
+        /** @var Repository $repository */
+        $repository = new $repositoryClassName();
+        return $repository->findAllEntity();
+    }
+
+    /**
      * @param Entity $entity
      * @throws \ReflectionException
      */
@@ -131,4 +147,7 @@ abstract class Repository
 
     abstract public function findEntity(int $id): ?Entity;
 
+    abstract public function findAllEntity(): array;
+
+    abstract public function toEntity(array $values): Entity;
 }

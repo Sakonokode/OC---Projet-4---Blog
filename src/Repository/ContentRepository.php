@@ -14,6 +14,10 @@ use App\Entity\Entity;
 use App\Entity\Post;
 use App\Entity\User;
 
+/**
+ * Class ContentRepository
+ * @package App\Repository
+ */
 class ContentRepository extends Repository
 {
     /**
@@ -81,8 +85,6 @@ class ContentRepository extends Repository
 
         $annotation = $this->readEntityAnnotation($content);
         $params = self::buildUpdateExecuteParams($content);
-
-        dump($params);
 
         $sql = <<<EOT
         UPDATE $annotation->table
@@ -152,5 +154,15 @@ EOT;
         }
 
         return null;
+    }
+
+    public function findAllEntity(): array
+    {
+        // TODO: Implement findAllEntity() method.
+    }
+
+    public function toEntity(array $values): Entity
+    {
+        // TODO: Implement toEntity() method.
     }
 }

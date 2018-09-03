@@ -66,7 +66,7 @@ PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `content`
 ADD CONSTRAINT `link_author_to_id`
 FOREIGN KEY (`author`)
-REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT ;
 
 ALTER TABLE `posts`
 ADD CONSTRAINT `link_id_content_to_id`
@@ -76,7 +76,7 @@ REFERENCES `content`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE `comments`
 ADD CONSTRAINT `link_id_content_in_comments_to_id`
 FOREIGN KEY (`id_content`)
-REFERENCES `content`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+REFERENCES `content`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT ;
 
 ALTER TABLE `reports`
 ADD CONSTRAINT `link_reports_id_content_to_id`
@@ -116,6 +116,11 @@ REFERENCES `posts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE `content` CHANGE `content` `content` TEXT
 CHARACTER SET latin1
 COLLATE latin1_swedish_ci NOT NULL;
+
+ALTER TABLE `comments`
+ADD CONSTRAINT `link_id_post_in_comments`
+FOREIGN KEY (`id_post`)
+REFERENCES `posts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `role`, `created_at`, `updated_at`, `deleted_at`)
 VALUES (NULL, 'admin', 'admin@domain.com', 'admin', '1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)

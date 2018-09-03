@@ -13,6 +13,10 @@ use App\Entity\Content;
 use App\Entity\Entity;
 use App\Entity\Post;
 
+/**
+ * Class PostRepository
+ * @package App\Repository
+ */
 class PostRepository extends Repository
 {
     /**
@@ -128,8 +132,6 @@ EOT;
         $annotation = $this->readEntityAnnotation($post);
         $params = self::buildUpdateExecuteParams($post);
 
-        dump($params);
-
         $sql = <<<EOT
         UPDATE $annotation->table
         SET  posts.id_content=:id_content, posts.title=:title, posts.description=:description, posts.slug=:slug
@@ -159,27 +161,62 @@ EOT;
         $result = $this->em->fetchAll();
 
         if (!empty($result)) {
-            $post = new Post();
-            $post->setId($result[0]->post_id);
-            $post->setTitle($result[0]->post_title);
-            $post->setDescription($result[0]->post_description);
-            $post->setSlug($result[0]->post_slug);
-            $post->setCreated(new \DateTime($result[0]->post_created_at));
-            $post->setUpdated(new \DateTime($result[0]->post_updated_at));
-
-            if ($result[0]->post_deleted_at !== null) {
-                $post->setDeleted(new \DateTime($result[0]->post_deleted_at));
-            }
-
-            $contentRepository = new ContentRepository();
-            /** @var Content $content */
-            $content = $contentRepository->findEntity($result[0]->post_id_content);
-
-            $post->setContent($content);
-
-            return $post;
+            $post = self::toEntity($result);
         }
 
         return null;
+    }
+
+    /**
+     * @return array
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     */
+    public function findAllEntity(): array
+    {
+        $entities = [];
+        $sql = <<<EOT
+        SELECT p.id AS post_id, p.id_content AS post_id_content, p.title AS post_title, p.description AS post_description, p.slug AS post_slug, p.created_at AS post_created_at, p.updated_at AS post_updated_at, p.deleted_at AS post_deleted_at
+        FROM posts AS p
+        
+EOT;
+        $this->em->query($sql);
+        $results = $this->em->fetchAll();
+
+        if (!empty($results)) {
+
+            foreach ($results as $values) {
+                $entities[] = self::toEntity($values);
+            }
+        }
+
+        return $entities;
+    }
+
+    /**
+     * @param object $values
+     * @return Entity
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     */
+    public function toEntity($values): Entity
+    {
+        $post = new Post();
+        $post->setId($values->post_id);
+        $post->setTitle($values->post_title);
+        $post->setDescription($values->post_description);
+        $post->setSlug($values->post_slug);
+        $post->setCreated(new \DateTime($values->post_created_at));
+        $post->setUpdated(new \DateTime($values->post_updated_at));
+
+        if ($values->post_deleted_at !== null) {
+            $post->setDeleted(new \DateTime($values->post_deleted_at));
+        }
+
+        $contentRepository = new ContentRepository();
+        /** @var Content $content */
+        $content = $contentRepository->findEntity($values->post_id_content);
+
+        $post->setContent($content);
+
+        return $post;
     }
 }

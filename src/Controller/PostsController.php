@@ -8,6 +8,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
+use App\Repository\PostRepository;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+
 class PostsController extends AbstractController {
 
     public function getPosts() {
@@ -41,11 +45,21 @@ class PostsController extends AbstractController {
      */
     public function showPostsAction() {
 
-        echo $this->render('/default/index.html.twig', array(null));
+        echo $this->render('/default/index.html.twig', []);
     }
 
-    public function new() {
+    /**
+     * @return string
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \ReflectionException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function listPostsAction() {
+        $repository = new PostRepository();
+        $posts = $repository->findAll(Post::class);
 
-
+        echo $this->render('/default/index.html.twig', ['posts' => $posts]);
     }
 }

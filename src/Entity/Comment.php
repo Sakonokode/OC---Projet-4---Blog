@@ -15,7 +15,7 @@ use App\Annotations\EntityAnnotation;
  * @package App\Entity
  * @EntityAnnotation(
  *     table="comments",
- *     insert="INSERT INTO comments VALUES(id, id_content, title, description, 'slug', NOW(), NOW(), NOW());",
+ *     insert="INSERT INTO comments VALUES(NULL, :id_content, :id_post, NOW(), NOW(), NOW());",
  *     find="SELECT * FROM comments WHERE id=%d;",
  *     update="",
  *     delete="",
@@ -28,11 +28,48 @@ class Comment extends Entity
 
     protected $reports;
 
+    /** @var Content $content */
+    protected $content;
+
+    /** @var Post $post */
+    protected $post;
 
     public function getReports()
     {
 
         return $this->reports;
+    }
+
+    /**
+     * @return Post
+     */
+    public function getPost(): Post
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param Post $post
+     */
+    public function setPost(Post $post): void
+    {
+        $this->post = $post;
+    }
+
+    /**
+     * @return Content
+     */
+    public function getContent(): Content
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param Content $content
+     */
+    public function setContent(Content $content): void
+    {
+        $this->content = $content;
     }
 
     public function setReports($reports)
@@ -41,18 +78,6 @@ class Comment extends Entity
         $this->reports = $reports;
 
         return $this;
-    }
-
-    /**
-     * @param array $objectAsArray
-     * @return Entity
-     */
-    public static function instantiate(array $objectAsArray): Entity
-    {
-        $comment = new self();
-        $comment->setReports($objectAsArray['reports']);
-
-        return $comment;
     }
 
 }
