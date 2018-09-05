@@ -22,7 +22,6 @@ session_start();
 AnnotationRegistry::registerLoader('class_exists');
 require_once __DIR__ . '/src/Core/Router/routes.php';
 
-
 try{
 
     $postRepository = new PostRepository();
@@ -41,9 +40,10 @@ try{
     #$content->setId(6);
 
     $post = new Post();
-    $post->setTitle('titre test');
+    $post->setTitle('un !@#tes$%*(t-randOUM pour-($) tout biaiser');
+    $slug = $post->slugify($post->getTitle());
     $post->setDescription('description test');
-    $post->setSlug('titre-test');
+    $post->setSlug($slug);
     $post->setContent($content);
     #$post->setId(6);
 
@@ -52,9 +52,9 @@ try{
     $comment->setPost($post);
 
     // INSERT USER & POST & COMMENT
-    $userRepository->insert($user);
-    $postRepository->insert($post);
-    $commentRepository->insert($comment);
+    #$userRepository->insert($user);
+    #$postRepository->insert($post);
+    #$commentRepository->insert($comment);
 
     // DELETE POST & USER & COMMENT
     #$commentRepository->delete($comment);

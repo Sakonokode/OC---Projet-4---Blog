@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 use App\Core\Database\EntityManager;
+use App\Entity\User;
 
 abstract class AbstractController
 {
@@ -33,6 +34,17 @@ abstract class AbstractController
     /** @var \Twig_Environment $twig */
     protected $twig;
 
+    /** @var User $user|null */
+    protected $user = null;
+
+    /**
+     * AbstractController constructor.
+     */
+    public function __construct()
+    {
+        $this->user = $_SESSION['user'];
+    }
+
     /**
      * @param $view
      * @param array $data
@@ -46,7 +58,20 @@ abstract class AbstractController
 
         $this->loader = new \Twig_Loader_Filesystem('/home/coltluger/Web/src/views');
         $this->twig = new \Twig_Environment($this->loader);
-
+        $this->addTwigFunctions();
         return $this->twig->render($view, $data);
     }
+
+    public function addTwigFunctions(): void
+    {
+        $isAuthenticated = new \Twig_Function('is_authenticated', function() {
+            return $_SESSION['user'] !== null;
+        });
+        $dateFormat = new \Twig_Function('date_format', function(\DateTime $date) {
+            return date_format($date, EntityManager::DB_DEFAULT_DATE_FORMAT);
+        });
+        $this->twig->addFunction($isAuthenticated);
+        $this->twig->addFunction($dateFormat);
+    }
+
 }

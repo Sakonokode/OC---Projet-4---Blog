@@ -15,6 +15,7 @@ use PDO;
 
 class EntityManager
 {
+    const DB_DEFAULT_DATE_FORMAT = 'Y-m-d H:i:s';
     const DB_HOST = '127.0.0.1';
     const DB_USER = 'phpmyadmin';
     const DB_PASS = 'root';
@@ -152,6 +153,7 @@ class EntityManager
     public function execute(array $params): bool
     {
         $result = $this->currentStatement->execute($params);
+        dump($result);
         if (!$result){
             throw new \Exception("error in execute");
         }

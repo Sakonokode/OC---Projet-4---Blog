@@ -68,9 +68,8 @@ class ContentRepository extends Repository
     {
         /** @var Content $entity */
         return [
-            'author' => $entity->getAuthor()->getId(),
-            'content' => $entity->getContent(),
             'id' => $entity->getId(),
+            'content' => $entity->getContent(),
         ];
     }
 
@@ -81,19 +80,10 @@ class ContentRepository extends Repository
      */
     public function updateEntity(Entity $content): void
     {
-        /** @var Content $content */
-
         $annotation = $this->readEntityAnnotation($content);
         $params = self::buildUpdateExecuteParams($content);
 
-        $sql = <<<EOT
-        UPDATE $annotation->table
-        SET  content.author=:author, content.content=:content
-        WHERE content.id=:id;
-
-EOT;
-
-        $this->em->prepare($sql);
+        $this->em->prepare($annotation->update);
         $this->em->execute($params);
     }
 
@@ -123,7 +113,6 @@ EOT;
     public function findEntity(int $id): ?Entity
     {
         // Syntaxe Heredoc
-        // Here we use SQL Left join
         $sql = <<<EOT
         SELECT 
         c.id AS content_id, c.author AS content_author, c.content AS content_content, c.created_at AS content_created_at, c.updated_at AS content_updated_at, c.deleted_at AS content_deleted_at  

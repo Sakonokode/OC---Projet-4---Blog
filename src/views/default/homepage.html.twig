@@ -22,23 +22,39 @@
                 </p>
                 <p>
                     <a class="btn btn-primary btn-lg" href="/posts">
-                        <i class="fa fa-users" aria-hidden="true"></i> {{ 'action.browse_app' }}
+                        <i class="fa fa-users" aria-hidden="true"></i> {{ 'Continuer' }}
                     </a>
                 </p>
             </div>
         </div>
+        {% if is_authenticated() %}
+            <div class="col-sm-6">
+                <div class="jumbotron">
+                    <p>
+                        {{ 'Logout' }}
+                    </p>
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="/logout">
+                            <i class="fa fa-lock" aria-hidden="true"></i> {{ 'Continuer' }}
+                        </a>
+                    </p>
+                </div>
+            </div>
+        {% endif %}
 
-        <div class="col-sm-6">
-            <div class="jumbotron">
-                <p>
-                    {{ 'Admin' }}
-                </p>
-                <p>
-                    <a class="btn btn-primary btn-lg" href="">
-                        <i class="fa fa-lock" aria-hidden="true"></i> {{ 'action.browse_admin' }}
-                    </a>
-                </p>
+        {% if not is_authenticated() %}
+            <div class="col-sm-6">
+                <div class="jumbotron">
+                    <p>
+                        {{ 'Login' }}
+                    </p>
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="/login">
+                            <i class="fa fa-lock" aria-hidden="true"></i> {{ 'Continuer' }}
+                        </a>
+                    </p>
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 {% endblock %}

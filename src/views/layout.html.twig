@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{% block title %}Blog d'Ecrivain{% endblock %}</title>
+    <title>{% block title %}Writter's Blog{% endblock %}</title>
     <link rel="alternate" type="application/rss+xml" title="{{ 'rss.title' }}" href="">
+    <script src="https://use.fontawesome.com/90e704ff06.js"></script>
     {% block stylesheets %}
         <link rel="stylesheet" href="../../public/css/test.css">
     {% endblock %}
@@ -19,8 +20,8 @@
         <div class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
                 <div class="navbar-header col-md-3 col-lg-2">
-                    <a class="navbar-brand" href="">
-                        Symfony Demo
+                    <a class="navbar-brand" href="/">
+                        Writter's Blog
                     </a>
 
                     <button type="button" class="navbar-toggle"
@@ -34,38 +35,19 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-
-                        {% block header_navigation_links %}
-                            <li>
-                                <a href="">
-                                    <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.homepage' }}
-                                </a>
-                            </li>
-                        {% endblock %}
-
+                        {% if not is_authenticated() %}
                         <li>
-                            <a href=""> <i class="fa fa-search"></i> {{ 'menu.search' }}
+                            <a href="{{ '/login/' }}"> <i class="fa fa-home" aria-hidden="true"></i> {{ 'Login' }}
                             </a>
                         </li>
 
-                        {% if app.user %}
+                        {% else %}
                             <li>
-                                <a href="">
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'menu.logout' }}
+                                <a href="{{ '/logout/' }}">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'Logout' }}
                                 </a>
                             </li>
                         {% endif %}
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false" id="locales">
-                                <i class="fa fa-globe" aria-hidden="true"></i>
-                                <span class="caret"></span>
-                                <span class="sr-only">{{ 'menu.choose_language' }}</span>
-                            </a>
-                            <ul class="dropdown-menu locales" role="menu" aria-labelledby="locales">
-                            </ul>
-                        </li>
                     </ul>
                 </div>
             </div>

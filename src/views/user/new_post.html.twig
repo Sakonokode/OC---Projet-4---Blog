@@ -1,0 +1,34 @@
+{% extends 'layout.html.twig' %}
+
+{% block body_id 'new_post' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="well">
+                <form action="{{ '/posts/new-post/' }}" method="post">
+                    <fieldset>
+                        <legend><i class="fa fa-lock" aria-hidden="true"></i> {{ 'New Post' }}</legend>
+                        <div class="form-group">
+                            <label for="title">{{ 'Title' }}</label>
+                            <input type="text" id="title" name="_title" class="form-control"/>
+                            <label for="description">{{ 'Description' }}</label>
+                            <input type="text" id="description" name="_description" class="form-control"/>
+                            <label for="content">{{ 'Content' }}</label>
+                            <input type="text" id="content" name="_content" class="form-control"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'Submit' }}
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+
+{% endblock %}

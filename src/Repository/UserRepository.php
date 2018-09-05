@@ -49,7 +49,7 @@ class UserRepository extends Repository
         $sql = <<<EOT
         UPDATE $annotation->table
         SET  users.nickname=:nickname, users.email=:email, users.password=:password, users.role=:role
-        WHERE users.id=:id;
+        WHERE users.id = :id;
 
 EOT;
 
@@ -133,6 +133,42 @@ EOT;
             $user->setNickname($result[0]->user_nickname);
             $user->setEmail($result[0]->user_email);
             $user->setPassword($result[0]->user_password);
+            $user->setCreated(new \DateTime($result[0]->user_created_at));
+            $user->setUpdated(new \DateTime($result[0]->user_updated_at));
+
+            if ($result[0]->user_deleted_at !== null) {
+                $user->setDeleted(new \DateTime($result[0]->user_deleted_at));
+            }
+
+            return $user;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $email
+     * @return Entity|null
+     */
+    public function findEntityByEmail(string $email): ?Entity
+    {
+        // Syntaxe Heredoc
+        $sql = <<<EOT
+        SELECT u.id AS user_id, u.nickname AS user_nickname, u.email AS user_email, u.password AS user_password, u.role AS user_role, u.created_at AS user_created_at, u.updated_at AS user_updated_at, u.deleted_at AS user_deleted_at
+        FROM users AS u  
+        WHERE u.email = '$email';
+EOT;
+
+        $this->em->query($sql);
+        $result = $this->em->fetchAll();
+
+        if (!empty($result)) {
+            $user = new User();
+            $user->setId($result[0]->user_id);
+            $user->setNickname($result[0]->user_nickname);
+            $user->setEmail($result[0]->user_email);
+            $user->setPassword($result[0]->user_password);
+            $user->setRole(2);
             $user->setCreated(new \DateTime($result[0]->user_created_at));
             $user->setUpdated(new \DateTime($result[0]->user_updated_at));
 

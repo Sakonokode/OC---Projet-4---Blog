@@ -12,8 +12,19 @@ $router = new Router($_SERVER['REQUEST_URI']);
 
 $router->get('/', "Home#homeAction");
 $router->get('/posts', "Posts#listPostsAction");
-$router->get('/posts/:id', "Posts#showPostsAction", function($id){ echo 'Afficher le billet' . $id; });
-$router->post('/posts/:id', "Posts#newAction", function($id){ echo 'Poster un billet' . $id;});
+$router->get('/posts/new-post/', "Posts#newPostAction");
+$router->post('/posts/new-post/', "Posts#checkNewPostAction");
+$router->get('/posts/:id', "Posts#showPostAction");
+$router->get('/subscribe/', "Security#subscribeAction");
+$router->post('/subscribe/', "Security#checkSubscribtionAction");
+$router->get('/login/', "Security#authAction");
+$router->post('/login/', "Security#checkAuthAction");
+$router->get('/logout/', "Security#logoutAction");
+$router->get('/posts/edit-post/:id', "Posts#editPostAction");
+$router->post('/posts/edit-post/:id', "Posts#checkEditPostAction");
+$router->get('/posts/delete-post/:id', "Posts#deletePostAction");
+$router->post('/posts/delete-post/:id', "Posts#checkDeletePostAction");
+
 
 $router->run();
 

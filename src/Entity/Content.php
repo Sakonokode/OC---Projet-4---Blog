@@ -17,7 +17,7 @@ use App\Annotations\EntityAnnotation;
  * @EntityAnnotation(
  *     table="content",
  *     insert="INSERT INTO content VALUES(NULL, :author, :content, NOW(), NOW(), NOW());",
- *     update="",
+ *     update="UPDATE content AS c SET  c.content = ':content' WHERE c.id = ':id';",
  *     delete="DELETE FROM content WHERE id=:id;",
  *     hasContent=false,
  *     repository="ContentRepository"

@@ -9,6 +9,8 @@
 namespace App\Core\Router;
 
 
+use App\Repository\PostRepository;
+
 class Route {
 
     /**
@@ -22,17 +24,24 @@ class Route {
     /** @var array $matches */
     private $matches = [];
 
+    /** @var array $params */
+    private $params = [];
+
     public function __construct($path, $callable) {
 
         $this->path = trim($path, '/');
         $this->callable = $callable;
     }
 
+    /**
+     * @param $url
+     * @return bool
+     */
     public function match($url) {
 
         $url = trim($url, '/');
 
-        $path = preg_replace('#:([\w]+)#', '([^/]+)', $this->path);
+        $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
 
         $regex = "#^$path$#i";
 
@@ -48,6 +57,17 @@ class Route {
         return true;
     }
 
+    private function paramMatch($match) {
+
+        if (isset($this->params[$match[1]])) {
+            return '(' . $this->params[$match[1]] . ')';
+        }
+        return '([^/]+)';
+    }
+
+    /**
+     * @return mixed
+     */
     public function call() {
 
         if (is_string($this->callable)) {
@@ -66,5 +86,17 @@ class Route {
         else {
             return call_user_func_array($this->callable, $this->matches);
         }
+    }
+
+    /**
+     * @param $param
+     * @param $regex
+     * @return $this
+     */
+    public function with($param, $regex) {
+
+        $this->params[$param] = str_replace('(', '(?:', $regex);
+
+        return $this;
     }
 }

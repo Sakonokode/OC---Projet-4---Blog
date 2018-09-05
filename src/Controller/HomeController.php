@@ -17,10 +17,9 @@ class HomeController extends AbstractController {
      */
     public function homeAction() {
 
-        /*
-        $this->load();
-        */
-
-        echo $this->render('default/homepage.html.twig', array(null));
+        if (!isset($_SESSION['is-authenticated'])) {
+            $_SESSION['is-authenticated'] = false;
+        }
+        echo $this->render('default/homepage.html.twig', []);
     }
 }

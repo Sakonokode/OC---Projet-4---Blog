@@ -17,7 +17,7 @@ use App\Entity\Entity as Entity;
  * @EntityAnnotation(
  *     table="posts",
  *     insert="INSERT INTO posts VALUES(NULL, :id_content, :title, :description, :slug, NOW(), NOW(), NOW());",
- *     update="UPDATE posts SET title=:title, description=:description, slug=:slug, NOW()=:updated_at WHERE id=:id;",
+ *     update="UPDATE posts AS p SET  p.title = :title, p.description = :description, p.slug = :slug, p.updated_at = :updated_at WHERE p.id = :id;",
  *     delete="DELETE FROM posts WHERE id=:id;",
  *     hasContent=true,
  *     repository="PostRepository"
@@ -109,4 +109,34 @@ class Post extends Entity
         $this->content = $content;
     }
 
+    /**
+     * @param $text
+     * @return null|string|string[]
+     */
+    public static function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
+    }
 }

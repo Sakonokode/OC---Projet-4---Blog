@@ -2,11 +2,15 @@
 
 {% block main %}
     <h1>{{ 'Last Published Posts' }}</h1>
-
+    <a href="{{ '/posts/new-post/' }}" class="btn btn-sm btn-primary">
+        <i class="fa fa-envelope" aria-hidden="true"></i> {{ 'New Post' }}
+    </a>
     <table class="table table-striped table-middle-aligned">
         <thead>
         <tr>
             <th scope="col">{{ 'Post Title' }}</th>
+            <th scope="col">{{ 'Post Author' }}</th>
+            <th scope="col">{{ 'Post Description' }}</th>
             <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> {{ 'Published At' }}</th>
             <th scope="col" class="text-center"><i class="fa fa-cogs" aria-hidden="true"></i> {{ 'Actions' }}</th>
         </tr>
@@ -15,25 +19,31 @@
         {% for post in posts %}
             <tr>
                 <td>{{ post.title }}</td>
+                <td>{{ post.content.author.nickname }}</td>
+                <td>{{ post.description }}</td>
+                <td>{{ date_format(post.created, 'Y-m-d H:i:s') }}</td>
                 <td class="text-right">
                     <div class="item-actions">
-                        <a href="{{ 'admin_post_show' }}" class="btn btn-sm btn-default">
-                            <i class="fa fa-eye" aria-hidden="true"></i> {{ 'action.show' }}
+                        <a href="{{'/posts/'}}{{ post.id }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-eye" aria-hidden="true"></i> {{ 'Display' }}
                         </a>
-
-                        <a href="{{ 'admin_post_edit' }}" class="btn btn-sm btn-primary">
-                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'action.edit' }}
-                        </a>
+                        {% if is_authenticated() and user.id == post.content.author.id %}
+                            <a href="{{ '/posts/edit-post/' }}{{ post.id }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Edit' }}
+                            </a>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4" align="center">{{ 'post.no_posts_found' }}</td>
+                <td colspan="4" align="center">{{ 'No Posts found' }}</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
+
 {% endblock %}
 
 {% block sidebar %}
@@ -42,8 +52,5 @@
             <i class="fa fa-plus" aria-hidden="true"></i> {{ 'action.create_post' }}
         </a>
     </div>
-
-
-
 
 {% endblock %}

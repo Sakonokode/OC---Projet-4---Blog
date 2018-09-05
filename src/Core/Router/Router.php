@@ -20,6 +20,9 @@ class Router
     /** @var array $routes */
     private $routes = [];
 
+    /** @var array $namedRoutes */
+    private $namedRoutes = [];
+
     /**
      * Router constructor.
      * @param string $url
@@ -33,27 +36,35 @@ class Router
     /**
      * @param $path
      * @param $callable
+     * @param null $name
+     * @return Route
      */
-    public function get($path, $callable): void
+    public function get($path, $callable, $name = null): Route
     {
-
         $route = new Route($path, $callable);
-
         $this->routes['GET'][] = $route;
+
+        return $route;
     }
 
     /**
      * @param $path
      * @param $callable
+     * @param null $name
+     * @return Route
      */
-    public function post($path, $callable): void
+    public function post($path, $callable, $name = null): Route
     {
-
         $route = new Route($path, $callable);
-
         $this->routes['POST'][] = $route;
+
+        return $route;
     }
 
+
+    /**
+     * @return mixed
+     */
     public function run()
     {
 
@@ -64,6 +75,7 @@ class Router
 
         foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
 
+            /** @var Route $route */
             if ($route->match($this->url)) {
 
                 return $route->call();

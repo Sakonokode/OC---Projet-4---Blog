@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+{% block body_id 'blog_post_show' %}
+
+{% block main %}
+    <h1>{{ post.title }}</h1>
+
+    <p class="post-metadata">
+        <span class="metadata"><i class="fa fa-calendar"></i> {{ post.updated_at }}</span>
+        <span class="metadata"><i class="fa fa-user"></i> {{ post.content.author.nickname }}</span>
+    </p>
+
+    {{ post.content.content }}
+
+    <h3>
+        <i class="fa fa-comments" aria-hidden="true"></i> {{ 'post.num_comments' }}
+    </h3>
+
+    {% for comment in post.comments %}
+        <div class="row post-comment">
+            <a name="comment_{{ comment.id }}"></a>
+            <h4 class="col-sm-3">
+                <strong>{{ comment.author.fullName }}</strong> {{ 'post.commented_on' }}
+                {# it's not mandatory to set the timezone in localizeddate(). This is done to
+                   avoid errors when the 'intl' PHP extension is not available and the application
+                   is forced to use the limited "intl polyfill", which only supports UTC and GMT #}
+                <strong>{{ comment.publishedAt }}</strong>
+            </h4>
+            <div class="col-sm-9">
+                {{ comment.content }}
+            </div>
+        </div>
+    {% else %}
+        <div class="post-comment">
+            <p>{{ 'post.no_comments' }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+    {# the parent() function includes the contents defined by the parent template
+      ('base.html.twig') for this block ('sidebar'). This is a very convenient way
+      to share common contents in different templates #}
+    {{ parent() }}
+
+{% endblock %}
