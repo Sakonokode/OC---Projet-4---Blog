@@ -8,18 +8,17 @@
 
 namespace App\Controller;
 
-class HomeController extends AbstractController {
+class HomeController extends AbstractController
+{
 
     /**
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function homeAction() {
+    public function homeAction()
+    {
 
-        if (!isset($_SESSION['is-authenticated'])) {
-            $_SESSION['is-authenticated'] = false;
-        }
         echo $this->render('default/homepage.html.twig', []);
     }
 }

@@ -15,11 +15,9 @@ use App\Annotations\EntityAnnotation;
  * @package App\Entity
  * @EntityAnnotation(
  *     table="comments",
- *     insert="INSERT INTO comments VALUES(NULL, :id_content, :id_post, NOW(), NOW(), NOW());",
- *     find="SELECT * FROM comments WHERE id=%d;",
- *     update="",
+ *     insert="INSERT INTO comments VALUES(NULL, :id_content, :id_post, NOW(), NOW(), :deleted_at);",
+ *     update="UPDATE comments AS c SET c.id_content = :id_content, c.id_post = :id_post, c.created_at = :created_at, c.updated_at = :updated_at WHERE c.id = :id;",
  *     delete="",
- *     hasContent=true,
  *     repository="CommentRepository"
  * )
  */

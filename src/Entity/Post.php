@@ -16,7 +16,7 @@ use App\Entity\Entity as Entity;
  * @package App\Entity
  * @EntityAnnotation(
  *     table="posts",
- *     insert="INSERT INTO posts VALUES(NULL, :id_content, :title, :description, :slug, NOW(), NOW(), NOW());",
+ *     insert="INSERT INTO posts VALUES(NULL, :id_content, :title, :description, :slug, NOW(), NOW(), :deleted_at);",
  *     update="UPDATE posts AS p SET  p.title = :title, p.description = :description, p.slug = :slug, p.updated_at = :updated_at WHERE p.id = :id;",
  *     delete="DELETE FROM posts WHERE id=:id;",
  *     hasContent=true,
@@ -37,6 +37,9 @@ class Post extends Entity
     /** @var Content $content */
     protected $content;
 
+    /** @var null|array $comments */
+    protected $comments = [];
+
     /**
      * Post constructor.
      */
@@ -52,6 +55,24 @@ class Post extends Entity
     {
         return $this->title;
     }
+
+    /**
+     * @return array
+     */
+    public function getComments(): ?array
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param null|array $comments
+     */
+    public function setComments(array $comments): void
+    {
+        $this->comments = $comments;
+    }
+
+
 
     /**
      * @param null|string $title

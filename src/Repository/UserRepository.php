@@ -101,7 +101,6 @@ EOT;
     {
         /** @var User $user */
         $annotation = $this->readEntityAnnotation($user);
-        dump($user);
         $params =  ['id' => $user->getId()];
 
         $sql = <<<EOT

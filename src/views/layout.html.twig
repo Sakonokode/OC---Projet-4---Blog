@@ -4,7 +4,6 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{% block title %}Writter's Blog{% endblock %}</title>
-    <link rel="alternate" type="application/rss+xml" title="{{ 'rss.title' }}" href="">
     <script src="https://use.fontawesome.com/90e704ff06.js"></script>
     {% block stylesheets %}
         <link rel="stylesheet" href="../../public/css/test.css">
@@ -23,7 +22,6 @@
                     <a class="navbar-brand" href="/">
                         Writter's Blog
                     </a>
-
                     <button type="button" class="navbar-toggle"
                             data-toggle="collapse"
                             data-target=".navbar-collapse">
@@ -44,7 +42,7 @@
                         {% else %}
                             <li>
                                 <a href="{{ '/logout/' }}">
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'Logout' }}
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i> {{ ' Logout ' ~ display_user_email() }}
                                 </a>
                             </li>
                         {% endif %}

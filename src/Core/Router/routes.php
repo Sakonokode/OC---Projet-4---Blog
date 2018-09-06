@@ -7,31 +7,32 @@
  */
 
 use App\Core\Router\Router;
+use App\Core\Session\Session;
 
 $router = new Router($_SERVER['REQUEST_URI']);
 
-$router->get('/', "Home#homeAction");
-$router->get('/posts', "Posts#listPostsAction");
-$router->get('/posts/new-post/', "Posts#newPostAction");
-$router->post('/posts/new-post/', "Posts#checkNewPostAction");
-$router->get('/posts/:id', "Posts#showPostAction");
-$router->get('/subscribe/', "Security#subscribeAction");
-$router->post('/subscribe/', "Security#checkSubscribtionAction");
-$router->get('/login/', "Security#authAction");
-$router->post('/login/', "Security#checkAuthAction");
-$router->get('/logout/', "Security#logoutAction");
-$router->get('/posts/edit-post/:id', "Posts#editPostAction");
-$router->post('/posts/edit-post/:id', "Posts#checkEditPostAction");
-$router->get('/posts/delete-post/:id', "Posts#deletePostAction");
-$router->post('/posts/delete-post/:id', "Posts#checkDeletePostAction");
+$router->route('home', 'get', '/home', "Home#homeAction");
 
+$router->route('get_form_subscribe','get', '/subscribe',"Security#subscribeAction");
+$router->route('submit_form_subscribe', 'post', '/subscribe', "Security#checkSubscribtionAction");
+$router->route('get_form_login','get', '/login', "Security#authAction");
+$router->route('submit_form_login', 'post', '/login', "Security#checkAuthAction");
+$router->route('logout', 'get', '/logout', "Security#logoutAction");
+
+$router->route('show_post', 'get', '/posts/:id', "Posts#showPostAction");
+$router->route('get_form_edit_post', 'get', '/posts/edit/:id', "Posts#getFormEditPostAction");
+$router->route('submit_form_edit_post', 'post', '/posts/edit/:id', "Posts#editPostAction");
+$router->route('delete_post', 'get', '/posts/delete/:id', "Posts#deletePostAction");
+$router->route('submit_form_new_post', 'post', '/posts/new', "Posts#newPostAction");
+$router->route('get_form_new_post', 'get', '/posts/new', "Posts#newPostAction");
+$router->route('list_posts', 'get', '/posts', "Posts#listPostsAction");
+
+$router->route('get_form_new_comment', 'get', '/comment-post/:id', "Comments#getFormNewCommentAction");
+$router->route('submit_form_new_comment', 'post', '/comment-post/:id', "Comments#newCommentAction");
+$router->route('get_form_edit_comment', 'get', '/comments/edit/:id', "Comments#getFormEditCommentAction");
+$router->route('submit_form_edit_comment', 'post', '/comments/edit/:id', "Comments#editCommentAction");
+$router->route('submit_delete_comment', 'get', '/comments/delete/:id', "Comments#deleteCommentAction");
 
 $router->run();
 
-// Ecrire le fichier .htaccess a la racine pour rediriger toutes les requetes http entrantes vers index.php qui pourra recuperer l'url avec les / grace a
-// $_SERVER["REQUEST_URI"] (Url demandee par l'user)
-
-// Verifier que le fichier du controlleur existe dans le dossier controlleur, en fonction du premier parametre de l'url
-// Verifier que le controlleur demande,  et l'action demandee existent
-// On appel le controlleur (et ses potentiels parametres)
-// Pour appeller la fonction correspondant a l action demandee, on utilise call_user_func_array.
+Session::getInstance()->setRouter($router);

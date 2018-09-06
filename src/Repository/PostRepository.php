@@ -45,7 +45,8 @@ class PostRepository extends Repository
             'id_content' => $post->getContent()->getId(),
             'title' => $post->getTitle(),
             'description' => $post->getDescription(),
-            'slug' => $post->getSlug()
+            'slug' => $post->getSlug(),
+            'deleted_at' => $post->getDeleted(),
         ];
 
         return $params;
@@ -83,14 +84,19 @@ class PostRepository extends Repository
     public function deleteEntity(Entity $post): void
     {
         /** @var Post $post */
-        $repository = new ContentRepository();
-        $repository->deleteEntity($post->getContent());
+        /** @var ContentRepository $contentRepository */
+        $contentRepository = new ContentRepository();
+        $contentRepository->deleteEntity($post->getContent());
+
+        /** @var CommentRepository $commentRepository */
+        #$commentRepository = new CommentRepository();
+        #$commentRepository->deleteByPost($post);
 
         $annotation = $this->readEntityAnnotation($post);
         $params =  ['id' => $post->getId()];
 
         $sql = <<<EOT
-        DELETE FROM $annotation->table WHERE id=:id;
+        DELETE FROM $annotation->table WHERE id = :id;
 EOT;
 
         $this->em->prepare($sql);
@@ -142,6 +148,7 @@ EOT;
      * @param int $id
      * @return Entity|null
      * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \ReflectionException
      */
     public function findEntity(int $id): ?Entity
     {
@@ -169,8 +176,15 @@ EOT;
             }
 
             $contentRepository = new ContentRepository();
+            $commentRepository = new CommentRepository();
+
             /** @var Content $content */
             $content = $contentRepository->findEntity($result[0]->post_id_content);
+            $comments = $commentRepository->findPostComments($id);
+
+            if ($comments != null) {
+                $post->setComments($comments);
+            }
 
             $post->setContent($content);
 
@@ -196,7 +210,6 @@ EOT;
         $results = $this->em->fetchAll();
 
         if (!empty($results)) {
-
             foreach ($results as $values) {
                 $entities[] = self::toEntity($values);
             }

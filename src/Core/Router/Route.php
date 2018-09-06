@@ -13,12 +13,13 @@ use App\Repository\PostRepository;
 
 class Route {
 
-    /**
-     * @var string $path
-     */
+    /** @var string $name */
+    private $name;
+
+    /** @var string $path */
     private $path;
 
-
+    /** @var string $callable */
     private $callable;
 
     /** @var array $matches */
@@ -27,8 +28,15 @@ class Route {
     /** @var array $params */
     private $params = [];
 
-    public function __construct($path, $callable) {
+    /**
+     * Route constructor.
+     * @param string $name
+     * @param string $path
+     * @param string $callable
+     */
+    public function __construct(string $name, string $path, string $callable) {
 
+        $this->name = $name;
         $this->path = trim($path, '/');
         $this->callable = $callable;
     }
@@ -37,7 +45,7 @@ class Route {
      * @param $url
      * @return bool
      */
-    public function match($url) {
+    public function match($url): bool {
 
         $url = trim($url, '/');
 
@@ -45,14 +53,15 @@ class Route {
 
         $regex = "#^$path$#i";
 
-        if (!preg_match($regex, $url, $matches)) {
-
+        if (!preg_match_all($regex, $url, $matches)) {
             return false;
         }
 
         array_shift($matches);
 
-        $this->matches = $matches;
+        foreach ($matches as $value) {
+            $this->matches[] = $value[0];
+        }
 
         return true;
     }
@@ -67,10 +76,11 @@ class Route {
 
     /**
      * @return mixed
+     * @throws \Exception
      */
     public function call() {
 
-        if (is_string($this->callable)) {
+        if ($this->callable !== null) {
 
             $params = explode('#', $this->callable);
 
@@ -83,9 +93,7 @@ class Route {
             return call_user_func_array([$controller, $params[1]], $this->matches);
         }
 
-        else {
-            return call_user_func_array($this->callable, $this->matches);
-        }
+        throw new \Exception(sprintf("Unable to call %s", $this->callable));
     }
 
     /**
@@ -98,5 +106,93 @@ class Route {
         $this->params[$param] = str_replace('(', '(?:', $regex);
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath(string $path): void
+    {
+        $this->path = $path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCallable(): string
+    {
+        return $this->callable;
+    }
+
+    /**
+     * @param string $callable
+     */
+    public function setCallable(string $callable): void
+    {
+        $this->callable = $callable;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMatches(): array
+    {
+        return $this->matches;
+    }
+
+    /**
+     * @param array $matches
+     */
+    public function setMatches(array $matches): void
+    {
+        $this->matches = $matches;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParams(): array
+    {
+        return $this->params;
+    }
+
+    /**
+     * @param array $params
+     */
+    public function setParams(array $params): void
+    {
+        $this->params = $params;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->path;
     }
 }

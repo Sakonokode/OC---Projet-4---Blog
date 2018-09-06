@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+
+{% block body_id 'new_comment' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="well">
+                <form action="{{ '/comment-post/' ~ post_id }}" method="post">
+                    <fieldset>
+                        <legend><i class="fa fa-lock" aria-hidden="true"></i> {{ 'New Comment' }}</legend>
+                        <div class="form-group">
+                            <label for="content">{{ 'Content' }}</label>
+                            <input type="text" id="content" name="_content" class="form-control"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'Submit' }}
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+
+{% endblock %}

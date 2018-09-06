@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+
+{% block body_id 'blog_post_show' %}
+
+{% block main %}
+    <h1>{{ post.title }}</h1>
+
+    <p class="post-metadata">
+        <span class="metadata"><i class="fa fa-calendar"></i> {{ date_format(post.updated, 'Y-m-d H:i:s') }}</span>
+        <span class="metadata"><i class="fa fa-user"></i> {{ post.content.author.nickname }}</span>
+    </p>
+
+    <div class="post-content">
+        {{ post.content.content | raw }}
+    </div>
+
+
+    <a href="{{ '/posts/edit/' ~ post.id }}" class="btn btn-sm btn-primary">
+        <i class="fa fa-comment-o" aria-hidden="true"></i> {{ 'Edit Post' }}
+    </a>
+    <h3>
+        <i class="fa fa-comments" aria-hidden="true"></i> {{ 'Comments' }}
+    </h3>
+    {% if is_authenticated() %}
+        <a href="{{ '/comment-post/' ~ post.id }}" class="btn btn-sm btn-primary">
+            <i class="fa fa-comment-o" aria-hidden="true"></i> {{ 'New Comment' }}
+        </a>
+    {% endif %}
+    {% for comment in comments %}
+        <div class="row post-comment">
+            <a name="_comments"></a>
+            <h4 class="col-sm-3">
+                <strong>{{ comment.content.author.nickname }}</strong>
+                <strong>{{ date_format(comment.content.created, 'Y-m-d H:i:s') }}</strong>
+            </h4>
+            <div class="col-sm-9">
+                {{ comment.content.content }}
+            </div>
+
+        </div>
+        <div class="item-actions">
+
+                <a href="{{ '/comments/edit/' ~ comment.id }}" class="btn btn-sm btn-warning">
+                    <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Edit' }}
+                </a>
+                <a href="{{ '/comments/delete/' ~ comment.id }}" class="btn btn-sm btn-danger">
+                    <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Delete' }}
+                </a>
+        </div>
+    {% else %}
+        <div class="post-comment">
+            <p>{{ 'No Comments found' }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

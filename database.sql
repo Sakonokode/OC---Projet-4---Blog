@@ -114,7 +114,8 @@ COLLATE latin1_swedish_ci NOT NULL;
 ALTER TABLE `users`
 ADD UNIQUE(`email`);
 
-ALTER TABLE `users` CHANGE `password` `password` VARCHAR(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+ALTER TABLE `users` CHANGE `password` `password` VARCHAR(256)
+CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
 
 ALTER TABLE `posts` CHANGE `deleted_at` `deleted_at` DATETIME NULL DEFAULT NULL;
 ALTER TABLE `users` CHANGE `deleted_at` `deleted_at` DATETIME NULL DEFAULT NULL;
@@ -122,5 +123,15 @@ ALTER TABLE `comments` CHANGE `deleted_at` `deleted_at` DATETIME NULL DEFAULT NU
 ALTER TABLE `reports` CHANGE `deleted_at` `deleted_at` DATETIME NULL DEFAULT NULL;
 ALTER TABLE `content` CHANGE `deleted_at` `deleted_at` DATETIME NULL DEFAULT NULL;
 
+ALTER TABLE `posts` DROP FOREIGN KEY `link_id_content_to_id`;
+ALTER TABLE `posts` ADD CONSTRAINT `link_id_content_to_id`
+FOREIGN KEY (`id_content`) REFERENCES `content`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 INSERT INTO `users` (`id`, `nickname`, `email`, `password`, `role`, `created_at`, `updated_at`, `deleted_at`)
 VALUES (NULL, 'admin', 'admin@domain.com', 'admin', '1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+
+ALTER TABLE `comments` ADD `id_content` INT NOT NULL AFTER `id`;
+ALTER TABLE `comments` ADD CONSTRAINT `id_content_to_content_id` FOREIGN KEY (`id_content`) REFERENCES `content`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `comments` ADD `id_post` INT NOT NULL AFTER `id_content`;
+ALTER TABLE `comments` ADD CONSTRAINT `id_post_to_post_id` FOREIGN KEY (`id_post`) REFERENCES `posts`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;

@@ -1,31 +1,23 @@
 {% extends 'layout.html.twig' %}
 
-{% block stylesheets %}
-    {{ parent() }}
-{% endblock %}
-
-{% block body_id 'edit_post' %}
+{% block body_id 'edit_comment' %}
 
 {% block main %}
     {% if is_authenticated() %}
         <div class="row">
             <div class="col-sm-5">
                 <div class="well">
-                    <form action="{{ '/posts/edit/' ~ post.id }}" method="post">
+                    <form action="{{ '/comments/edit/' ~ comment.id }}" method="post">
                         <fieldset>
-                            <legend><i class="fa fa-pencil" aria-hidden="true"></i> {{ 'Edit Post' }}</legend>
+                            <legend><i class="fa fa-pencil" aria-hidden="true"></i> {{ 'Edit Comment' }}</legend>
                             <div class="form-group">
-                                <label for="title">{{ 'Title' }}</label>
-                                <input type="text" id="title" name="_title" value="{{ post.title }}" class="form-control"/>
-                                <label for="description">{{ 'Description' }}</label>
-                                <input type="text" id="description" name="_description" value="{{ post.description }}" class="form-control"/>
                                 <label for="content">{{ 'Content' }}</label>
-                                <input type="text" id="content" name="_content" value="{{ post.content.content }}" class="form-control"/>
+                                <input type="text" id="content" name="_content" value="{{ comment.content.content }}" class="form-control"/>
                             </div>
                             <button type="submit" class="btn btn-warning">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'Submit Modification' }}
                             </button>
-                            <a href="{{ '/posts/delete/' ~ post.id }}" class="btn btn btn-danger">
+                            <a href="{{ '/comments/delete/' ~ comment.id }}" class="btn btn btn-danger">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i> {{ 'Delete' }}
                             </a>
                         </fieldset>
@@ -45,5 +37,3 @@
     {% endif %}
 
 {% endblock %}
-
-

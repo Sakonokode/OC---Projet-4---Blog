@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 use App\Core\Database\EntityManager;
+use App\Core\Session\Session;
 use App\Entity\User;
 
 abstract class AbstractController
@@ -34,15 +35,12 @@ abstract class AbstractController
     /** @var \Twig_Environment $twig */
     protected $twig;
 
-    /** @var User $user|null */
-    protected $user = null;
-
     /**
      * AbstractController constructor.
      */
     public function __construct()
     {
-        $this->user = $_SESSION['user'];
+
     }
 
     /**
@@ -55,7 +53,6 @@ abstract class AbstractController
      */
     public function render($view, array $data)
     {
-
         $this->loader = new \Twig_Loader_Filesystem('/home/coltluger/Web/src/views');
         $this->twig = new \Twig_Environment($this->loader);
         $this->addTwigFunctions();
@@ -65,13 +62,30 @@ abstract class AbstractController
     public function addTwigFunctions(): void
     {
         $isAuthenticated = new \Twig_Function('is_authenticated', function() {
-            return $_SESSION['user'] !== null;
+            return (Session::getInstance()->getUser() !== null);
         });
+
         $dateFormat = new \Twig_Function('date_format', function(\DateTime $date) {
             return date_format($date, EntityManager::DB_DEFAULT_DATE_FORMAT);
         });
+
+        $displayUserEmail = new \Twig_Function('display_user_email', function() {
+            return Session::getInstance()->getUser()->getEmail();
+        });
+
+
         $this->twig->addFunction($isAuthenticated);
         $this->twig->addFunction($dateFormat);
+        $this->twig->addFunction($displayUserEmail);
     }
 
+    /**
+     * @param string $route
+     * @param array $params
+     * @param string $method
+     */
+    public function redirect(string $route, array $params, string $method): void
+    {
+        Session::getInstance()->getRouter()->redirect($route, $params, $method);
+    }
 }

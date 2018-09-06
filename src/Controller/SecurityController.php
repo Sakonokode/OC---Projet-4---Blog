@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\Core\Session\Session;
 use App\Entity\User;
 use App\Repository\Repository;
 use App\Repository\UserRepository;
@@ -42,10 +43,9 @@ class SecurityController extends AbstractController
 
         if ($encryptedPassword === $user->getPassword()) {
             $user->setPassword(null);
-            $_SESSION['user'] = $user;
+            Session::getInstance()->setUser($user);
 
-            header_remove('/login');
-            header("Location: /posts/");
+            $this->redirect('home', [], 'GET');
         }else {
             throw new \Exception("Incorrect Password");
         }
@@ -90,8 +90,7 @@ class SecurityController extends AbstractController
     }
 
     public function logoutAction() {
-        session_destroy();
-        header_remove();
-        header("Location: /");
+        Session::destroy();
+        Session::getInstance()->getRouter()->redirect('home', [], 'GET');
     }
 }

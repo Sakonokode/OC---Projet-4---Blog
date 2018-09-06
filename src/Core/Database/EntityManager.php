@@ -153,7 +153,6 @@ class EntityManager
     public function execute(array $params): bool
     {
         $result = $this->currentStatement->execute($params);
-        dump($result);
         if (!$result){
             throw new \Exception("error in execute");
         }
