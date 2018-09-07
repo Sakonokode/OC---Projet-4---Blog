@@ -34,6 +34,9 @@ class EntityAnnotation
     /** @var bool $hasContent */
     public $hasContent = false;
 
+    /** @var string $insertInCommentReports */
+    public $insertInCommentReports;
+
     /**
      * @Annotation\Required()
      * @var string $repository

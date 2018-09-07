@@ -23,15 +23,15 @@
             <i class="fa fa-trash" aria-hidden="true"></i> {{ 'Delete Post' }}
         </a>
     {% endif %}
+    {% if is_authenticated() %}
+        <a href="{{ '/comment/post/' ~ post.id }}" class="btn btn-sm btn-primary pull-right">
+            <i class="fa fa-comment-o" aria-hidden="true"></i> {{ 'New Comment' }}
+        </a>
+    {% endif %}
     <hr/>
     <h3>
         <i class="fa fa-comments" aria-hidden="true"></i> {{ 'Comments' }}
     </h3>
-    {% if is_authenticated() %}
-        <a href="{{ '/comment-post/' ~ post.id }}" class="btn btn-sm btn-primary">
-            <i class="fa fa-comment-o" aria-hidden="true"></i> {{ 'New Comment' }}
-        </a>
-    {% endif %}
     {% for comment in post.comments %}
         <div class="row post-comment">
             <a name="_comments"></a>
@@ -42,6 +42,13 @@
             <div class="col-sm-9">
                 {{ comment.content.content | raw }}
             </div>
+            {% if is_authenticated() %}
+                <div class="item-actions pull-right">
+                    <a href="{{ '/report/comment/' ~ comment.id }}" class="btn btn-sm btn-warning">
+                        <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Report' }}
+                    </a>
+                </div>
+            {% endif %}
         </div>
         {% if is_authenticated() and user.id == post.content.author.id %}
             <div class="item-actions">

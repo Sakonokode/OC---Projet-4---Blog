@@ -17,14 +17,15 @@ use App\Annotations\EntityAnnotation;
  *     table="comments",
  *     insert="INSERT INTO comments VALUES(NULL, :id_content, :id_post, NOW(), NOW(), :deleted_at);",
  *     update="UPDATE comments AS c SET c.id_content = :id_content, c.id_post = :id_post, c.created_at = :created_at, c.updated_at = :updated_at WHERE c.id = :id;",
- *     delete="",
+ *     getReports="SELECT * FROM comments_reports AS c_r  LEFT JOIN repports AS r ON r.id = c_r.id_repport WHERE id_comment=:id",
  *     repository="CommentRepository"
  * )
  */
 class Comment extends Entity
 {
 
-    protected $reports;
+    /** @var array $reports */
+    protected $reports = [];
 
     /** @var Content $content */
     protected $content;
@@ -32,6 +33,9 @@ class Comment extends Entity
     /** @var Post $post */
     protected $post;
 
+    /**
+     * @return array
+     */
     public function getReports()
     {
 
@@ -70,6 +74,10 @@ class Comment extends Entity
         $this->content = $content;
     }
 
+    /**
+     * @param $reports
+     * @return $this
+     */
     public function setReports($reports)
     {
 

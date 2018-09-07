@@ -206,6 +206,7 @@ EOT;
         $results = $this->em->fetchAll();
 
         if (!empty($results)) {
+
             foreach ($results as $values) {
                 $entities[] = self::toEntity($values);
             }

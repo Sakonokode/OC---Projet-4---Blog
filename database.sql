@@ -44,18 +44,6 @@ CREATE TABLE IF NOT EXISTS `blogwritter`.`reports` (
 `deleted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `blogwritter`.`comments_reports` (
-`id` INT NOT NULL AUTO_INCREMENT ,
-`id_report` INT NOT NULL ,
-`id_comment` INT NOT NULL ,
-PRIMARY KEY (`id`)) ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `blogwritter`.`posts_comments` (
-`id` INT NOT NULL AUTO_INCREMENT ,
-`id_post` INT NOT NULL ,
-`id_comment` INT NOT NULL ,
-PRIMARY KEY (`id`)) ENGINE = InnoDB;
-
 CREATE TABLE IF NOT EXISTS `blogwritter`.`posts_reports` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `id_post` INT NOT NULL ,
@@ -76,36 +64,6 @@ ALTER TABLE `reports`
 ADD CONSTRAINT `link_reports_id_content_to_id`
 FOREIGN KEY (`id_content`)
 REFERENCES `content`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE `posts_reports`
-ADD CONSTRAINT `link_id_post_to_id`
-FOREIGN KEY (`id_post`)
-REFERENCES `posts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE `posts_reports`
-ADD CONSTRAINT `link_id_report_to_id`
-FOREIGN KEY (`id_report`)
-REFERENCES `reports`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE `comments_reports`
-ADD CONSTRAINT `link_comments_reports_id_report_to_id`
-FOREIGN KEY (`id_report`)
-REFERENCES `reports`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE `comments_reports`
-ADD CONSTRAINT `link_comments_reports_id_comment_to_id`
-FOREIGN KEY (`id_comment`)
-REFERENCES `comments`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE `posts_comments`
-ADD CONSTRAINT `link_id_comment_to_comments_id`
-FOREIGN KEY (`id_comment`)
-REFERENCES `comments`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE `posts_comments`
-ADD CONSTRAINT `link_posts_comments_id_post_to_id`
-FOREIGN KEY (`id_post`)
-REFERENCES `posts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE `content` CHANGE `content` `content` TEXT
 CHARACTER SET latin1
@@ -137,3 +95,13 @@ ALTER TABLE `comments` ADD `id_post` INT NOT NULL AFTER `id_content`;
 ALTER TABLE `comments` ADD CONSTRAINT `id_post_to_post_id` FOREIGN KEY (`id_post`) REFERENCES `posts`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE `posts` CHANGE `slug` `slug` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
 ALTER TABLE `posts` CHANGE `title` `title` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+ALTER TABLE `reports` CHANGE `id_content` `id_user` INT(11) NOT NULL;
+ALTER TABLE `reports` DROP FOREIGN KEY `link_reports_id_content_to_id`; ALTER TABLE `reports` ADD CONSTRAINT `id_user to user_id` FOREIGN KEY (`id_user`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `comments_reports` ADD UNIQUE(`id_comment`);
+ALTER TABLE `comments_reports` ADD CONSTRAINT `id report to report id` FOREIGN KEY (`id_report`) REFERENCES `reports`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT; ALTER TABLE `comments_reports` ADD CONSTRAINT `id comment to comment id` FOREIGN KEY (`id_comment`) REFERENCES `comments`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION; ALTER TABLE `comments_reports` ADD CONSTRAINT `id user to user id` FOREIGN KEY (`id_user`) REFERENCES `users`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `reports` DROP FOREIGN KEY `id_user to user_id`; ALTER TABLE `reports` ADD CONSTRAINT `id_user to user_id` FOREIGN KEY (`id_user`) REFERENCES `users`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `comments_reports` ADD `id_post` INT NOT NULL AFTER `id_user`;
+
+
