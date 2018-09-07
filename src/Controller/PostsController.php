@@ -56,7 +56,7 @@ class PostsController extends AbstractController
      * @throws \Twig_Error_Syntax
      * @throws \Exception
      */
-    public function formNewPostAction() {
+    public function getFormNewPostAction() {
 
         if (Session::getInstance()->getUser() !== null) {
             echo $this->render('/user/new_post.html.twig', []);
@@ -70,7 +70,7 @@ class PostsController extends AbstractController
      */
     public function newPostAction() {
 
-        if ($_SESSION['user'] === null) {
+        if (Session::getInstance()->getUser() === null) {
             throw new \Exception("You have to login before creating a post");
         }
         if ($_POST['_title'] === null) {
@@ -84,12 +84,9 @@ class PostsController extends AbstractController
         /** @var PostRepository $repository */
         $repository = new PostRepository();
 
-        /** @var User $authenticated */
-        $authenticated = $_SESSION['user'];
-
         /** @var Content $content */
         $content = new Content();
-        $content->setAuthor($authenticated);
+        $content->setAuthor(Session::getInstance()->getUser());
         $content->setContent($_POST['_content']);
 
         /** @var Post $post */
@@ -100,6 +97,7 @@ class PostsController extends AbstractController
         $post->setContent($content);
 
         $repository->insert($post);
+        $this->redirect('list_posts', [], 'GET');
     }
 
     /**
@@ -112,17 +110,15 @@ class PostsController extends AbstractController
         /** @var PostRepository $repository */
         $repository = new PostRepository();
 
-        /** @var User $authenticated */
-        $authenticated = $_SESSION['user'];
-
         /** @var Post $post */
         $post = $repository->find(Post::class, $id);
-        if ($authenticated->getId() == $post->getContent()->getAuthor()->getId()) {
-            $repository->delete($post);
-        }else {
+        if (Session::getInstance()->getUser()->getId() !== $post->getContent()->getAuthor()->getId()) {
             throw new \Exception("You can not delete a Post you have not created");
+
         }
 
+        $repository->delete($post);
+        $this->redirect('list_posts', [], 'GET');
     }
 
     /**

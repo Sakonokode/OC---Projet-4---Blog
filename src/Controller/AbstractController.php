@@ -69,14 +69,13 @@ abstract class AbstractController
             return date_format($date, EntityManager::DB_DEFAULT_DATE_FORMAT);
         });
 
-        $displayUserEmail = new \Twig_Function('display_user_email', function() {
-            return Session::getInstance()->getUser()->getEmail();
+        $getUser = new \Twig_Function('get_user', function() {
+            return Session::getInstance()->getUser();
         });
-
 
         $this->twig->addFunction($isAuthenticated);
         $this->twig->addFunction($dateFormat);
-        $this->twig->addFunction($displayUserEmail);
+        $this->twig->addFunction($getUser);
     }
 
     /**

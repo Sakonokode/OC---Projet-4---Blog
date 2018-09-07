@@ -4,26 +4,24 @@
 
 {% block main %}
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-12">
             <div class="well">
                 <form action="{{ '/comment-post/' ~ post_id }}" method="post">
                     <fieldset>
-                        <legend><i class="fa fa-lock" aria-hidden="true"></i> {{ 'New Comment' }}</legend>
+                        <legend><i class="fa fa-comments-o" aria-hidden="true"></i> {{ 'New Comment' }}</legend>
                         <div class="form-group">
                             <label for="content">{{ 'Content' }}</label>
-                            <input type="text" id="content" name="_content" class="form-control"/>
+                            <textarea id="content" name="_content" class="form-control"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-success pull-right">
                             <i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'Submit' }}
                         </button>
+                        <a href="{{ '/posts/' ~ post_id }}" class="btn btn btn-primary">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> {{ 'Back to Post' }}
+                        </a>
                     </fieldset>
                 </form>
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block sidebar %}
-    {{ parent() }}
-
 {% endblock %}

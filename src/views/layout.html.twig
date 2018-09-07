@@ -8,18 +8,18 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="../../public/css/test.css">
     {% endblock %}
-
     <link rel="icon" type="image/x-icon" href=""/>
 </head>
 
 <body id="{% block body_id %}{% endblock %}">
+{% set user = get_user() %}
 
 {% block header %}
     <header>
         <div class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
                 <div class="navbar-header col-md-3 col-lg-2">
-                    <a class="navbar-brand" href="/">
+                    <a class="navbar-brand" href="/home">
                         Writter's Blog
                     </a>
                     <button type="button" class="navbar-toggle"
@@ -33,16 +33,16 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        {% if not is_authenticated() %}
+                        {% if not user %}
                         <li>
-                            <a href="{{ '/login/' }}"> <i class="fa fa-home" aria-hidden="true"></i> {{ 'Login' }}
+                            <a href="{{ '/login' }}"> <i class="fa fa-home" aria-hidden="true"></i> {{ 'Login' }}
                             </a>
                         </li>
 
                         {% else %}
                             <li>
-                                <a href="{{ '/logout/' }}">
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i> {{ ' Logout ' ~ display_user_email() }}
+                                <a href="{{ '/logout' }}">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i> {{ ' Logout ' ~ user.email }}
                                 </a>
                             </li>
                         {% endif %}
@@ -56,14 +56,10 @@
 <div class="container body-container">
     {% block body %}
         <div class="row">
-            <div id="main" class="col-sm-9">
+            <div id="main" class="col-sm-12">
 
 
                 {% block main %}{% endblock %}
-            </div>
-
-            <div id="sidebar" class="col-sm-3">
-
             </div>
         </div>
     {% endblock %}
@@ -74,7 +70,8 @@
 {% endblock %}
 
 {% block javascripts %}
-
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>
 {% endblock %}
 
 

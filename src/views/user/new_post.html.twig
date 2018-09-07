@@ -4,9 +4,9 @@
 
 {% block main %}
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-12">
             <div class="well">
-                <form action="{{ '/posts/new-post/' }}" method="post">
+                <form action="{{ '/posts-new' }}" method="post">
                     <fieldset>
                         <legend><i class="fa fa-lock" aria-hidden="true"></i> {{ 'New Post' }}</legend>
                         <div class="form-group">
@@ -15,9 +15,13 @@
                             <label for="description">{{ 'Description' }}</label>
                             <input type="text" id="description" name="_description" class="form-control"/>
                             <label for="content">{{ 'Content' }}</label>
-                            <input type="text" id="content" name="_content" class="form-control"/>
+                            <textarea id="content" name="_content" class="form-control">
+                            </textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">
+                        <a href="{{ '/posts' }}" class="btn btn btn-primary">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> {{ 'Back to Posts list' }}
+                        </a>
+                        <button type="submit" class="btn btn-success pull-right">
                             <i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'Submit' }}
                         </button>
                     </fieldset>
@@ -25,10 +29,4 @@
             </div>
         </div>
     </div>
-
-{% endblock %}
-
-{% block sidebar %}
-    {{ parent() }}
-
 {% endblock %}

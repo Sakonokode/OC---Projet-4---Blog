@@ -9,15 +9,20 @@
         <span class="metadata"><i class="fa fa-calendar"></i> {{ date_format(post.updated, 'Y-m-d H:i:s') }}</span>
         <span class="metadata"><i class="fa fa-user"></i> {{ post.content.author.nickname }}</span>
     </p>
-
     <div class="post-content">
         {{ post.content.content | raw }}
     </div>
-
-
-    <a href="{{ '/posts/edit/' ~ post.id }}" class="btn btn-sm btn-primary">
-        <i class="fa fa-comment-o" aria-hidden="true"></i> {{ 'Edit Post' }}
+    <a href="{{ '/posts' }}" class="btn btn-sm btn-primary">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> {{ 'Back to Posts' }}
     </a>
+    {% if user and user.id == post.content.author.id %}
+        <a href="{{ '/posts/edit/' ~ post.id }}" class="btn btn-sm btn-warning">
+            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Edit Post' }}
+        </a>
+        <a href="{{ '/posts/delete/' ~ post.id }}" class="btn btn-sm btn-danger">
+            <i class="fa fa-trash" aria-hidden="true"></i> {{ 'Delete Post' }}
+        </a>
+    {% endif %}
     <h3>
         <i class="fa fa-comments" aria-hidden="true"></i> {{ 'Comments' }}
     </h3>
@@ -36,16 +41,14 @@
             <div class="col-sm-9">
                 {{ comment.content.content }}
             </div>
-
         </div>
         <div class="item-actions">
-
-                <a href="{{ '/comments/edit/' ~ comment.id }}" class="btn btn-sm btn-warning">
-                    <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Edit' }}
-                </a>
-                <a href="{{ '/comments/delete/' ~ comment.id }}" class="btn btn-sm btn-danger">
-                    <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Delete' }}
-                </a>
+            <a href="{{ '/comments/edit/' ~ comment.id }}" class="btn btn-sm btn-warning">
+                <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Edit' }}
+            </a>
+            <a href="{{ '/comments/delete/' ~ comment.id }}" class="btn btn-sm btn-danger">
+                <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Delete' }}
+            </a>
         </div>
     {% else %}
         <div class="post-comment">

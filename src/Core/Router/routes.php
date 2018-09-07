@@ -23,8 +23,8 @@ $router->route('show_post', 'get', '/posts/:id', "Posts#showPostAction");
 $router->route('get_form_edit_post', 'get', '/posts/edit/:id', "Posts#getFormEditPostAction");
 $router->route('submit_form_edit_post', 'post', '/posts/edit/:id', "Posts#editPostAction");
 $router->route('delete_post', 'get', '/posts/delete/:id', "Posts#deletePostAction");
-$router->route('submit_form_new_post', 'post', '/posts/new', "Posts#newPostAction");
-$router->route('get_form_new_post', 'get', '/posts/new', "Posts#newPostAction");
+$router->route('submit_form_new_post', 'post', '/posts-new', "Posts#newPostAction");
+$router->route('get_form_new_post', 'get', '/posts-new', "Posts#getFormNewPostAction");
 $router->route('list_posts', 'get', '/posts', "Posts#listPostsAction");
 
 $router->route('get_form_new_comment', 'get', '/comment-post/:id', "Comments#getFormNewCommentAction");
