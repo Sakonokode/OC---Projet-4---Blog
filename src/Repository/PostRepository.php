@@ -88,10 +88,6 @@ class PostRepository extends Repository
         $contentRepository = new ContentRepository();
         $contentRepository->deleteEntity($post->getContent());
 
-        /** @var CommentRepository $commentRepository */
-        #$commentRepository = new CommentRepository();
-        #$commentRepository->deleteByPost($post);
-
         $annotation = $this->readEntityAnnotation($post);
         $params =  ['id' => $post->getId()];
 

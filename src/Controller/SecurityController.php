@@ -41,14 +41,14 @@ class SecurityController extends AbstractController
             throw new \Exception("This user does not exist");
         }
 
-        if ($encryptedPassword === $user->getPassword()) {
-            $user->setPassword(null);
-            Session::getInstance()->setUser($user);
-
-            $this->redirect('home', [], 'GET');
-        }else {
+        if ($encryptedPassword !== $user->getPassword()) {
             throw new \Exception("Incorrect Password");
         }
+
+        $user->setPassword(null);
+        Session::getInstance()->setUser($user);
+
+        $this->redirect('list_posts', [], 'GET');
     }
 
     /**

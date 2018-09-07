@@ -11,11 +11,7 @@ namespace App\Controller;
 use App\Core\Session\Session;
 use App\Entity\Content;
 use App\Entity\Post;
-use App\Entity\User;
-use App\Repository\ContentRepository;
 use App\Repository\PostRepository;
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use Symfony\Component\Debug\Exception\ClassNotFoundException;
 
 class PostsController extends AbstractController
 {
@@ -26,6 +22,7 @@ class PostsController extends AbstractController
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @throws \Exception
      */
     public function showPostAction(int $id) {
         /** @var PostRepository $repository */
@@ -33,7 +30,11 @@ class PostsController extends AbstractController
         /** @var Post $post */
         $post = $repository->find(Post::class, $id);
 
-        echo $this->render('/blog/show_post.html.twig', ['post' => $post, 'comments' =>  $post->getComments()]);
+        if ($post === null) {
+            throw new \Exception('Unable to find Post');
+        }
+
+        echo $this->render('/blog/show_post.html.twig', ['post' => $post]);
     }
 
     /**

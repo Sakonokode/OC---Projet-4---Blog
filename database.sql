@@ -135,3 +135,5 @@ ALTER TABLE `comments` ADD CONSTRAINT `id_content_to_content_id` FOREIGN KEY (`i
 
 ALTER TABLE `comments` ADD `id_post` INT NOT NULL AFTER `id_content`;
 ALTER TABLE `comments` ADD CONSTRAINT `id_post_to_post_id` FOREIGN KEY (`id_post`) REFERENCES `posts`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `posts` CHANGE `slug` `slug` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+ALTER TABLE `posts` CHANGE `title` `title` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;

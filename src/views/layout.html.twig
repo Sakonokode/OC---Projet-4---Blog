@@ -6,7 +6,7 @@
     <title>{% block title %}Writter's Blog{% endblock %}</title>
     <script src="https://use.fontawesome.com/90e704ff06.js"></script>
     {% block stylesheets %}
-        <link rel="stylesheet" href="../../public/css/test.css">
+        <link rel="stylesheet" href="../../public/css/theme.css">
     {% endblock %}
     <link rel="icon" type="image/x-icon" href=""/>
 </head>
@@ -53,12 +53,10 @@
     </header>
 {% endblock %}
 
-<div class="container body-container">
+<div class="body-container">
     {% block body %}
         <div class="row">
             <div id="main" class="col-sm-12">
-
-
                 {% block main %}{% endblock %}
             </div>
         </div>

@@ -23,6 +23,7 @@
             <i class="fa fa-trash" aria-hidden="true"></i> {{ 'Delete Post' }}
         </a>
     {% endif %}
+    <hr/>
     <h3>
         <i class="fa fa-comments" aria-hidden="true"></i> {{ 'Comments' }}
     </h3>
@@ -31,7 +32,7 @@
             <i class="fa fa-comment-o" aria-hidden="true"></i> {{ 'New Comment' }}
         </a>
     {% endif %}
-    {% for comment in comments %}
+    {% for comment in post.comments %}
         <div class="row post-comment">
             <a name="_comments"></a>
             <h4 class="col-sm-3">
@@ -39,20 +40,25 @@
                 <strong>{{ date_format(comment.content.created, 'Y-m-d H:i:s') }}</strong>
             </h4>
             <div class="col-sm-9">
-                {{ comment.content.content }}
+                {{ comment.content.content | raw }}
             </div>
         </div>
-        <div class="item-actions">
-            <a href="{{ '/comments/edit/' ~ comment.id }}" class="btn btn-sm btn-warning">
-                <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Edit' }}
-            </a>
-            <a href="{{ '/comments/delete/' ~ comment.id }}" class="btn btn-sm btn-danger">
-                <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Delete' }}
-            </a>
-        </div>
+        {% if is_authenticated() and user.id == post.content.author.id %}
+            <div class="item-actions">
+                <a href="{{ '/comments/edit/' ~ comment.id }}" class="btn btn-sm btn-warning">
+                    <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Edit' }}
+                </a>
+                <a href="{{ '/comments/delete/' ~ comment.id }}" class="btn btn-sm btn-danger">
+                    <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Delete' }}
+                </a>
+            </div>
+        {% endif %}
     {% else %}
-        <div class="post-comment">
-            <p>{{ 'No Comments found' }}</p>
+        <div class="alert alert-dark" role="alert">
+            No Comments, Be the first to comment !
+            <a href="{{ '/comment-post/' ~ post.id }}" class="btn btn-sm btn-success">
+                <i class="fa fa-comment-o" aria-hidden="true"></i> {{ 'Comment' }}
+            </a>
         </div>
     {% endfor %}
 {% endblock %}

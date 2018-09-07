@@ -66,7 +66,7 @@ class CommentsController extends AbstractController
 
         $commentRepository->insert($comment);
 
-        $this->redirect('show_post', ['id' => $comment->getId()], 'GET');
+        $this->redirect('show_post', ['id' => $postId], 'GET');
     }
 
     /**
